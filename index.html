@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>법무법인 프리미엄 | 강남 서초 리딩 로펌</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --dark-navy: #0F172A;
+            --deep-black: #050505;
+        }
+
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--deep-black); color: #e2e8f0; overflow-x: hidden; }
+        .serif { font-family: 'Noto Serif KR', serif; }
+        
+        /* 페이지 전환용 로딩 오버레이 */
+        #page-loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--deep-black); z-index: 1000;
+            display: none; opacity: 0; transition: opacity 0.4s ease;
+        }
+
+        /* 페이지 컨테이너 */
+        .page-content { display: none; min-height: 100vh; animation: pageIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .page-content.active { display: block; }
+
+        @keyframes pageIn {
+            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* 디자인 디테일 */
+        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F5E0A3 50%, #B8860B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .subpage-header { height: 45vh; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .subpage-header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--deep-black)); }
+
+        .nav-link.active { color: var(--gold); }
+        .nav-link.active::after { content: ''; display: block; width: 100%; height: 2px; background: var(--gold); margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+    <div id="page-loader"></div>
+
+    <!-- 네비게이션 -->
+    <nav class="fixed w-full z-[100] bg-[#050505]/90 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-[1400px] mx-auto px-8 h-24 flex items-center justify-between">
+            <div class="text-2xl md:text-3xl serif font-bold tracking-tighter cursor-pointer group" onclick="navigate('home')">
+                <span class="text-white group-hover:text-amber-500 transition-colors tracking-widest">PREMIUM</span>
+                <span class="text-amber-600 font-light">LAW</span>
+            </div>
+            <div class="hidden lg:flex gap-12 text-[14px] font-semibold tracking-widest items-center">
+                <a href="javascript:void(0)" onclick="navigate('home')" class="nav-link active" id="btn-home">홈으로</a>
+                <a href="javascript:void(0)" onclick="navigate('about')" class="nav-link" id="btn-about">로펌 인사이트</a>
+                <a href="javascript:void(0)" onclick="navigate('portfolio')" class="nav-link" id="btn-portfolio">승소 기록관</a>
+                <a href="javascript:void(0)" onclick="navigate('reviews')" class="nav-link" id="btn-reviews">의뢰인의 목소리</a>
+                <a href="javascript:void(0)" onclick="navigate('contact')" class="bg-amber-600 px-8 py-3 text-white hover:bg-amber-700 transition-all rounded-sm ml-4">상담 예약하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- [1. 메인 홈] -->
+    <section id="page-home" class="page-content active">
+        <div class="relative h-screen flex items-center justify-center overflow-hidden">
+            <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-40">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-legal-clerk-working-in-a-law-office-33314-large.mp4" type="video/mp4">
+            </video>
+            <div class="relative z-10 text-center px-6" data-aos="fade-up">
+                <h1 class="text-5xl md:text-[8rem] serif font-bold leading-none mb-10 tracking-tighter">
+                    <span class="gold-gradient italic">변론</span> <span class="text-white">그 이상의 가치.</span>
+                </h1>
+                <p class="text-lg md:text-2xl font-light text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
+                    법무법인 프리미엄은 단순한 법률 자문을 넘어, 의뢰인의 삶을 보호하는 최후의 요새입니다. <br> 
+                    치밀한 전략과 압도적인 경험으로 서초동 법조타운의 새로운 기준을 제시합니다.
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button onclick="navigate('portfolio')" class="px-12 py-5 border border-amber-600 text-amber-500 font-bold hover:bg-amber-600 hover:text-white transition-all text-sm tracking-[0.2em]">승소 사례 확인</button>
+                    <button onclick="navigate('contact')" class="px-12 py-5 bg-amber-600 text-white font-bold text-sm tracking-[0.2em] shadow-2xl">긴급 상담 예약</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [2. 로펌 소개] -->
+    <section id="page-about" class="page-content">
+        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069');">
+            <div class="relative z-10 px-6">
+                <p class="gold-text tracking-[0.5em] text-sm mb-4">FIRM INSIGHT</p>
+                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic" data-aos="fade-up">로펌 인사이트</h2>
+            </div>
+        </header>
+        <div class="max-w-[1200px] mx-auto px-8 py-32">
+            <div class="grid lg:grid-cols-12 gap-20 items-start">
+                <div class="lg:col-span-5 sticky top-32">
+                    <h3 class="text-amber-600 font-bold tracking-widest text-sm mb-6 uppercase">우리의 철학</h3>
+                    <p class="text-5xl serif font-bold leading-tight mb-10 text-white">가장 어두운 순간,<br>당신의 곁을 지키는<br>정교한 법률 솔루션.</p>
+                    <div class="space-y-8 text-gray-400 leading-relaxed text-lg">
+                        <p>우리는 모든 사건 뒤에 한 사람의 인생과 가문의 명예가 걸려 있음을 누구보다 잘 알고 있습니다. 이것이 우리가 타협 없는 완벽함을 추구하는 이유입니다.</p>
+                        <p>법무법인 프리미엄은 대형 로펌의 체계적인 시스템과 강소 로펌의 밀착 대응을 결합하여, 의뢰인 한 분만을 위한 전담 태스크포스(TF)를 구성합니다.</p>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 grid gap-12">
+                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
+                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">01. 전방위적 증거 분석 시스템</h4>
+                        <p class="text-gray-400 leading-loose">자체 디지털 포렌식 팀과 회계 분석 전문가가 협업하여, 검찰의 논리를 무너뜨릴 스모킹 건을 찾아냅니다. 우리는 보이지 않는 1%의 증거에 집착합니다.</p>
+                    </div>
+                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
+                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">02. 판례 데이터베이스 초정밀 매칭</h4>
+                        <p class="text-gray-400 leading-loose">최근 15년간의 전국 법원 판례 30,000건을 AI로 분석하여, 현재 사건을 담당하는 재판부의 성향과 유사 사건의 승소 핵심 포인트를 도출합니다.</p>
+                    </div>
+                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
+                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">03. 의뢰인 안심 밀착 케어</h4>
+                        <p class="text-gray-400 leading-loose">사무장이 대리하지 않습니다. 모든 소통은 담당 변호사가 직접 수행하며, 사건의 진행 상황을 매주 상세 리포트로 제공하여 의뢰인의 불안을 제거합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [3. 승소 기록관] -->
+    <section id="page-portfolio" class="page-content">
+        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070');">
+            <div class="relative z-10 px-6">
+                <p class="gold-text tracking-[0.5em] text-sm mb-4">SUCCESS ARCHIVE</p>
+                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic">승소 기록관</h2>
+            </div>
+        </header>
+        <div class="max-w-[1400px] mx-auto px-8 py-32">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-b border-white/10 pb-12">
+                <h3 class="text-5xl font-bold serif">결과로 증명된 <span class="gold-gradient tracking-tighter">압도적 성과</span></h3>
+                <div class="text-gray-500 font-bold uppercase tracking-widest text-xs">총 1,245건 이상의 성공 사례 보유</div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5">
+                <!-- 사례 1 -->
+                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
+                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">형사 방어 전문</p>
+                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">대형 경제범죄 배임 혐의 <br> 수사 단계 무혐의 종결</h4>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기관</span> <span>서울중앙지검</span></li>
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 120억 원</span></li>
+                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>불기소 (혐의없음)</span></li>
+                    </ul>
+                    <p class="text-gray-500 leading-relaxed text-sm">복잡한 자금 흐름을 회계적으로 재구성하여 통상적인 경영 판단임을 입증, 기소 전 사건을 완벽히 방어했습니다.</p>
+                </div>
+                <!-- 사례 2 -->
+                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
+                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">성범죄 전담</p>
+                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">강제추행 무고 사건 <br> 1심 무죄 판결 확정</h4>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울동부지법</span></li>
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기간</span> <span>14개월 집중 수행</span></li>
+                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>전부 무죄</span></li>
+                    </ul>
+                    <p class="text-gray-500 leading-relaxed text-sm">상대방 진술의 모순점을 법의학적 증거와 CCTV 동선 분석으로 파고들어 억울한 의뢰인의 누명을 벗겨냈습니다.</p>
+                </div>
+                <!-- 사례 3 -->
+                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
+                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">고액 자산 상속</p>
+                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">유류분 반환 청구 소송 <br> 피고 측 전부 방어 승소</h4>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울가정법원</span></li>
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 85억 원</span></li>
+                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>청구 기각 (승소)</span></li>
+                    </ul>
+                    <p class="text-gray-500 leading-relaxed text-sm">상대방의 유류분 청구액을 정교한 기여분 산정 논리로 방어하여 가문의 자산을 온전히 보존했습니다.</p>
+                </div>
+                <!-- 사례 4 -->
+                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500 border-t border-white/5">
+                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">기업 분쟁 전담</p>
+                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">경영권 분쟁 및 주주권 <br> 확인 소송 전부 승소</h4>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기관</span> <span>서울중앙지법</span></li>
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 300억 원</span></li>
+                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>원고 승소</span></li>
+                    </ul>
+                    <p class="text-gray-500 leading-relaxed text-sm">적대적 M&A 시도를 법리적 결함 발견으로 차단하고 대주주의 경영권을 완벽하게 방어한 사례입니다.</p>
+                </div>
+                <!-- 사례 5 -->
+                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500 border-t border-white/5">
+                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">부동산 전문</p>
+                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">재개발 구역 토지 인도 <br> 강제 집행 정지 및 승소</h4>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울서부지법</span></li>
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>대상</span> <span>대규모 상가 단지</span></li>
+                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>승소 및 합의 유도</span></li>
+                    </ul>
+                    <p class="text-gray-500 leading-relaxed text-sm">복잡한 권리 관계를 분석하여 시행사의 무리한 요구를 차단하고 의뢰인들에게 최대 보상금을 안겨드렸습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [4. 의뢰인의 목소리] -->
+    <section id="page-reviews" class="page-content">
+        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1556155092-490a1ba16284?q=80&w=2070');">
+            <div class="relative z-10 px-6">
+                <p class="gold-text tracking-[0.5em] text-sm mb-4">CLIENT TESTIMONIALS</p>
+                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic">의뢰인의 목소리</h2>
+            </div>
+        </header>
+        <div class="max-w-[1000px] mx-auto px-8 py-32">
+            <div class="text-center mb-32">
+                <h3 class="text-4xl serif font-bold mb-8 italic">"우리는 수치보다 사람의 회복에 집중합니다."</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">의뢰인이 다시 평범한 일상으로 돌아가는 것, 그것이 법무법인 프리미엄이 존재하는 이유입니다.</p>
+            </div>
+            
+            <div class="space-y-16">
+                <!-- 리뷰 1 -->
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-4 text-center">
+                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
+                        <p class="text-white font-bold">IT 기업 CEO K님</p>
+                        <p class="text-gray-500 text-xs">기업 법무 상담</p>
+                    </div>
+                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
+                        "억울한 횡령 배임 혐의로 회사가 흔들릴 때, 여기 변호사님들은 단순한 법률 대리인이 아니라 비즈니스 파트너였습니다. 검찰 수사 단계에서 모든 의혹을 해소해 주셔서 큰 피해 없이 사업을 계속할 수 있었습니다."
+                    </div>
+                </div>
+                <!-- 리뷰 2 -->
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-4 text-center">
+                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
+                        <p class="text-white font-bold">의뢰인 P님</p>
+                        <p class="text-gray-500 text-xs">형사 무죄 성공</p>
+                    </div>
+                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
+                        "다른 곳에선 다들 유죄를 인정하고 형량을 낮추자고 했지만, 이곳만큼은 저의 진실을 믿어주셨습니다. 변호사님이 직접 현장을 수십 번 가시는 정성을 보고 결과를 예감했습니다. 결국 무죄 판결을 받았을 때 정말 감사했습니다."
+                    </div>
+                </div>
+                <!-- 리뷰 3 -->
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-4 text-center">
+                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
+                        <p class="text-white font-bold">자산가 L님</p>
+                        <p class="text-gray-500 text-xs">상속 재산 분쟁</p>
+                    </div>
+                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
+                        "상속 문제로 가족 간의 갈등이 극에 달했을 때, 가장 품격 있고 합리적인 대안을 제시해 주셨습니다. 무리한 소송보다 실익 중심의 협상을 이끌어 주셔서 자산도 지키고 가족 관계도 파탄 나지 않게 도와주셨습니다."
+                    </div>
+                </div>
+                <!-- 리뷰 4 -->
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-4 text-center">
+                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
+                        <p class="text-white font-bold">건물주 H님</p>
+                        <p class="text-gray-500 text-xs">부동산 명도 소송</p>
+                    </div>
+                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
+                        "명도 소송이 이렇게 빨리 끝날 줄 몰랐습니다. 상대방의 허점을 정확히 찌르는 법리 전개 덕분에 질질 끌던 사건이 단기간에 조정으로 마무리되었습니다. 역시 서초동 베테랑은 다릅니다."
+                    </div>
+                </div>
+                <!-- 리뷰 5 -->
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-4 text-center">
+                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
+                        <p class="text-white font-bold">전문직 D님</p>
+                        <p class="text-gray-500 text-xs">의료 과실 방어</p>
+                    </div>
+                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
+                        "의료 과실 청구로 면허 취소 위기까지 갔지만, 변호사님이 의학적인 지식까지 완벽하게 공부해서 대응하시는 모습에 전율을 느꼈습니다. 결과적으로 과실 없음 판결을 받아내며 제 커리어를 지켰습니다."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [5. 상담 예약] -->
+    <section id="page-contact" class="page-content">
+        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=2074');">
+            <div class="relative z-10 px-6">
+                <p class="gold-text tracking-[0.5em] text-sm mb-4">GET COUNSEL</p>
+                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic uppercase">법률 상담 예약</h2>
+            </div>
+        </header>
+        <div class="max-w-[1400px] mx-auto px-8 py-32">
+            <div class="grid lg:grid-cols-2 gap-32">
+                <div class="text-left">
+                    <h3 class="text-5xl serif font-bold mb-12 leading-tight">당신의 시간이<br><span class="gold-gradient">승소의 골든타임</span>입니다.</h3>
+                    <div class="space-y-12">
+                        <div class="flex items-start gap-8">
+                            <i data-lucide="phone" class="text-amber-600 w-10 h-10"></i>
+                            <div>
+                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-2">긴급 직통 번호</p>
+                                <p class="text-3xl font-bold text-white">02-555-9876</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-8">
+                            <i data-lucide="map-pin" class="text-amber-600 w-10 h-10"></i>
+                            <div>
+                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-2">오시는 길</p>
+                                <p class="text-xl font-bold text-white leading-relaxed">서울 서초구 서초대로 311, <br>법조타워 1502호 (강남역 5번 출구 앞)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-16 text-black shadow-2xl">
+                    <h4 class="text-3xl serif font-bold mb-12 italic">1:1 보안 상담 신청</h4>
+                    <form class="grid gap-10">
+                        <input type="text" placeholder="의뢰인 성함" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light">
+                        <input type="tel" placeholder="연락처 (핸드폰)" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light">
+                        <select class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light text-gray-400">
+                            <option>사건 분야 선택</option>
+                            <option>긴급 형사 방어</option>
+                            <option>기업 법무 / 경제 범죄</option>
+                            <option>상속 / 이혼 / 가사</option>
+                            <option>부동산 / 민사 분쟁</option>
+                        </select>
+                        <textarea placeholder="상담 내용을 간략히 입력해 주세요 (보안 보장)" rows="4" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light"></textarea>
+                        <button type="button" onclick="alert('전담 변호사에게 보안 전송되었습니다.')" class="bg-black text-white py-6 text-xl font-bold tracking-widest hover:bg-amber-600 transition-all uppercase">신청하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 border-t border-white/5 bg-black text-center text-gray-600 text-[11px] tracking-[0.4em] uppercase">
+        © 2024 LAW FIRM PREMIUM. 모든 변론은 진실을 향합니다.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        lucide.createIcons();
+
+        function navigate(pageId) {
+            const loader = document.getElementById('page-loader');
+            loader.style.display = 'block';
+            setTimeout(() => { loader.style.opacity = '1'; }, 10);
+
+            setTimeout(() => {
+                document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+                document.getElementById('page-' + pageId).classList.add('active');
+                if(document.getElementById('btn-' + pageId)) {
+                    document.getElementById('btn-' + pageId).classList.add('active');
+                }
+
+                window.scrollTo(0, 0);
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 400);
+            }, 600);
+        }
+    </script>
+</body>
+</html>
