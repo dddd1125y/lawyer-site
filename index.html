@@ -72,7 +72,8 @@
         a:focus-visible,
         button:focus-visible,
         input:focus-visible,
-        textarea:focus-visible {
+        textarea:focus-visible,
+        [role="button"]:focus-visible {
             outline: 2px solid var(--color-accent-blue);
             outline-offset: 3px;
             border-radius: 2px;
@@ -529,7 +530,7 @@
             letter-spacing: 0.3px;
         }
 
-        .eyebrow .dot {
+        .dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
@@ -899,12 +900,38 @@
             background: var(--color-surface);
             border-radius: 14px;
             border: 1px solid var(--color-border);
-            transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+            cursor: pointer;
+            transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s ease;
         }
 
-        .process-step:hover {
+        .process-step:hover,
+        .process-step:focus-visible {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-accent-blue);
+        }
+
+        .process-step-hint {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-accent-blue);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .process-step:hover .process-step-hint,
+        .process-step:focus-visible .process-step-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .process-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
         }
 
         .process-step:not(:last-child)::after {
@@ -946,6 +973,175 @@
             font-size: 0.94rem;
             color: var(--color-text-light);
             line-height: 1.8;
+        }
+
+        /* ===== PROCESS DETAIL (FULL-SCREEN PAGE TRANSITION) ===== */
+        body.detail-open > *:not(.process-detail) {
+            filter: blur(6px);
+            transform: scale(0.97);
+            transition: filter 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+        }
+
+        .process-detail {
+            position: fixed;
+            inset: 0;
+            z-index: 250;
+            background: var(--color-off-white);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            transform: translateY(100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.65s var(--ease-out), opacity 0.6s var(--ease-out), visibility 0.65s var(--ease-out);
+            padding: 6rem 2rem 6rem;
+        }
+
+        .process-detail.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .process-detail-inner {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .detail-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--color-border);
+            font-size: 18px;
+            color: var(--color-text-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 251;
+            transition: transform 0.3s var(--ease-out), background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-close:hover {
+            transform: rotate(90deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .detail-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid var(--color-border);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-accent-blue);
+            letter-spacing: 0.3px;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.35;
+            letter-spacing: -0.3px;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-intro {
+            font-size: 1.05rem;
+            color: var(--color-text-light);
+            line-height: 1.9;
+            max-width: 600px;
+            margin-bottom: 3.5rem;
+        }
+
+        .detail-timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-step {
+            display: flex;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .detail-step:last-child {
+            border-bottom: none;
+        }
+
+        .detail-step-num {
+            flex-shrink: 0;
+            width: 96px;
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.3;
+            padding-bottom: 0.05em;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .detail-step-body h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.85rem;
+        }
+
+        .detail-step-body p {
+            color: var(--color-text-light);
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .detail-meta span {
+            padding: 0.4rem 0.9rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            color: var(--color-text-light);
+        }
+
+        .detail-cta {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--color-dark);
+            border-radius: 16px;
+            color: white;
+        }
+
+        .detail-cta p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .detail-step {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .detail-step-num {
+                width: auto;
+                font-size: 2.25rem;
+            }
         }
 
         /* ===== CONTACT SECTION ===== */
@@ -1127,8 +1323,7 @@
             .nav-backdrop {
                 position: fixed;
                 inset: 0;
-                background: rgba(20, 20, 26, 0.35);
-                backdrop-filter: blur(2px);
+                background: rgba(20, 20, 26, 0.55);
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 0.4s ease;
@@ -1188,7 +1383,7 @@
                 <ul id="navMenu">
                     <li style="--i:0"><a href="#hero" class="nav-link">소개</a></li>
                     <li style="--i:1"><a href="#services" class="nav-link">서비스</a></li>
-                    <li style="--i:2"><a href="#process" class="nav-link">진행방식</a></li>
+                    <li style="--i:2"><a href="#process" class="nav-link" onclick="openProcessDetail(event)">진행방식</a></li>
                     <li style="--i:3"><a href="#contact" class="nav-link">연락</a></li>
                     <li style="--i:4"><button class="cta-button" onclick="scrollToContact()">문의하기</button></li>
                 </ul>
@@ -1326,37 +1521,106 @@
         <div class="process-inner" id="process">
             <h2 class="section-title" data-reveal><span class="title-bar"></span>프로젝트 진행 방식</h2>
             <div class="process-grid">
-                <div class="process-step" data-reveal style="--reveal-index:0">
+                <div class="process-step" data-reveal style="--reveal-index:0" tabindex="0" role="button" aria-haspopup="dialog" onclick="openProcessDetail(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProcessDetail(event);}">
                     <div class="step-number mono-num">01</div>
                     <h3 class="step-title">요구사항 파악</h3>
                     <p class="step-description">
                         상세한 상담을 통해 프로젝트의 목표와 필요한 기능을 정확히 이해합니다.
                     </p>
+                    <span class="process-step-hint">자세히 보기 →</span>
                 </div>
-                <div class="process-step" data-reveal style="--reveal-index:1">
+                <div class="process-step" data-reveal style="--reveal-index:1" tabindex="0" role="button" aria-haspopup="dialog" onclick="openProcessDetail(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProcessDetail(event);}">
                     <div class="step-number mono-num">02</div>
                     <h3 class="step-title">구조 설계</h3>
                     <p class="step-description">
                         사이트맵과 와이어프레임을 작성하여 구조를 명확히 합니다.
                     </p>
+                    <span class="process-step-hint">자세히 보기 →</span>
                 </div>
-                <div class="process-step" data-reveal style="--reveal-index:2">
+                <div class="process-step" data-reveal style="--reveal-index:2" tabindex="0" role="button" aria-haspopup="dialog" onclick="openProcessDetail(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProcessDetail(event);}">
                     <div class="step-number mono-num">03</div>
                     <h3 class="step-title">디자인 & 개발</h3>
                     <p class="step-description">
                         아름다운 디자인으로 표현하고, 기술적으로 완벽하게 구현합니다.
                     </p>
+                    <span class="process-step-hint">자세히 보기 →</span>
                 </div>
-                <div class="process-step" data-reveal style="--reveal-index:3">
+                <div class="process-step" data-reveal style="--reveal-index:3" tabindex="0" role="button" aria-haspopup="dialog" onclick="openProcessDetail(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProcessDetail(event);}">
                     <div class="step-number mono-num">04</div>
                     <h3 class="step-title">피드백 반영</h3>
                     <p class="step-description">
                         수정 사항을 신속하게 반영하여 최종 완성합니다.
                     </p>
+                    <span class="process-step-hint">자세히 보기 →</span>
                 </div>
+            </div>
+            <div class="process-more">
+                <button class="btn-secondary" onclick="openProcessDetail(event)">전체 프로세스 자세히 보기</button>
             </div>
         </div>
     </section>
+
+    <!-- PROCESS DETAIL (FULL-SCREEN) -->
+    <div class="process-detail" id="processDetail" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+        <button class="detail-close" id="detailClose" aria-label="닫기">✕</button>
+        <div class="process-detail-inner">
+            <span class="detail-eyebrow"><span class="dot"></span>작업 방식</span>
+            <h2 class="detail-title" id="detailTitle">처음 연락부터 완성까지,<br>4단계로 투명하게</h2>
+            <p class="detail-intro">
+                어떤 과정을 거쳐 웹사이트가 완성되는지 궁금하실 수 있습니다. 각 단계에서 무엇을 하고, 무엇을 확인받는지 미리 말씀드립니다.
+            </p>
+            <div class="detail-timeline">
+                <div class="detail-step">
+                    <div class="detail-step-num mono-num">01</div>
+                    <div class="detail-step-body">
+                        <h3>요구사항 파악</h3>
+                        <p>어떤 사업을 하시는지, 사이트로 무엇을 이루고 싶으신지 편하게 이야기를 나눕니다. 참고하고 싶은 사이트나 원하는 분위기가 있다면 이 단계에서 함께 정리합니다.</p>
+                        <div class="detail-meta">
+                            <span>소요 기간 1~2일</span>
+                            <span>결과물 요구사항 정리 노트</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-step">
+                    <div class="detail-step-num mono-num">02</div>
+                    <div class="detail-step-body">
+                        <h3>구조 설계</h3>
+                        <p>어떤 페이지가 필요하고 각 페이지에 무슨 내용이 들어갈지 사이트맵으로 정리합니다. 방문자가 자연스럽게 원하는 정보에 도달하도록 흐름을 먼저 설계합니다.</p>
+                        <div class="detail-meta">
+                            <span>소요 기간 2~3일</span>
+                            <span>결과물 사이트맵 · 와이어프레임</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-step">
+                    <div class="detail-step-num mono-num">03</div>
+                    <div class="detail-step-body">
+                        <h3>디자인 & 개발</h3>
+                        <p>설계한 구조를 바탕으로 실제 화면을 디자인하고 코드로 구현합니다. 진행 중간중간 화면을 공유하여, 완성되기 전에도 방향을 확인하고 조정할 수 있습니다.</p>
+                        <div class="detail-meta">
+                            <span>소요 기간 프로젝트 규모에 따라 상이</span>
+                            <span>결과물 실제 작동하는 웹사이트</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-step">
+                    <div class="detail-step-num mono-num">04</div>
+                    <div class="detail-step-body">
+                        <h3>피드백 반영</h3>
+                        <p>완성본을 직접 확인하시고 원하시는 부분을 자유롭게 수정 요청하시면 됩니다. 만족하실 때까지 무제한으로 피드백을 반영하며, 완성 후에도 필요한 도움을 드립니다.</p>
+                        <div class="detail-meta">
+                            <span>소요 기간 요청 사항에 따라 상이</span>
+                            <span>결과물 최종 완성 및 인수인계</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-cta">
+                <p>지금 바로 프로젝트를 시작해볼까요?</p>
+                <button class="btn-primary" onclick="closeProcessDetail(); scrollToContact();">문의하기</button>
+            </div>
+        </div>
+    </div>
 
     <!-- CONTACT SECTION -->
     <section id="contact" class="contact">
@@ -1406,6 +1670,40 @@
         function scrollToContact() {
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
+
+        /* Process detail full-screen page transition */
+        const processDetail = document.getElementById('processDetail');
+        const detailClose = document.getElementById('detailClose');
+        let lastFocusedBeforeDetail = null;
+
+        function openProcessDetail(e) {
+            if (e) e.preventDefault();
+            if (typeof closeMenu === 'function') closeMenu();
+            lastFocusedBeforeDetail = document.activeElement;
+            processDetail.classList.add('open');
+            processDetail.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('detail-open');
+            document.body.style.overflow = 'hidden';
+            detailClose.focus();
+        }
+
+        function closeProcessDetail() {
+            processDetail.classList.remove('open');
+            processDetail.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('detail-open');
+            document.body.style.overflow = '';
+            if (lastFocusedBeforeDetail && lastFocusedBeforeDetail.focus) {
+                lastFocusedBeforeDetail.focus();
+            }
+        }
+
+        detailClose.addEventListener('click', closeProcessDetail);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && processDetail.classList.contains('open')) {
+                closeProcessDetail();
+            }
+        });
 
         function handleFormSubmit(event) {
             event.preventDefault();
