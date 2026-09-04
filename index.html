@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <noscript><style>.preloader{display:none!important;}[data-reveal],header,.hero .eyebrow,.hero-headline .reveal-word,.hero-subheadline,.hero-stats .stat-item,.hero-buttons,.scroll-cue{opacity:1!important;transform:none!important;filter:none!important;}</style></noscript>
     <style>
         * {
             margin: 0;
@@ -23,12 +24,13 @@
             --color-accent-purple: #a855f7;
             --color-accent-pink: #ec4899;
             --color-accent-orange: #f97316;
-            --color-text-light: #6b6b6b;
+            --color-text-light: #57575f;
             --color-text-dark: #16161c;
             --color-border: #e8e6e1;
             --gradient-primary: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
             --gradient-full: linear-gradient(90deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 50%, var(--color-accent-pink) 100%);
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
             --nav-height: 84px;
         }
 
@@ -111,6 +113,114 @@
             }
         }
 
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: var(--color-off-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s var(--ease-out), visibility 0.6s var(--ease-out);
+        }
+
+        .preloader-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+            background: var(--gradient-primary);
+            animation: preloaderPulse 1.1s ease-in-out infinite;
+        }
+
+        @keyframes preloaderPulse {
+            0%, 100% { transform: scale(1); border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+            50% { transform: scale(1.18); border-radius: 58% 42% 40% 60% / 55% 60% 40% 45%; }
+        }
+
+        .preloader.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* ===== HERO INTRO SEQUENCE ===== */
+        header,
+        .hero .eyebrow,
+        .hero-headline .reveal-word,
+        .hero-subheadline,
+        .hero-stats,
+        .hero-buttons,
+        .scroll-cue {
+            opacity: 0;
+        }
+
+        header {
+            transform: translateY(-16px);
+        }
+
+        body.intro-ready header {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero .eyebrow,
+        .hero-subheadline,
+        .hero-buttons {
+            transform: translateY(22px);
+            transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out), filter 0.85s var(--ease-out);
+            filter: blur(6px);
+        }
+
+        body.intro-ready .hero .eyebrow { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 0.45s; }
+        body.intro-ready .hero-subheadline { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 0.95s; }
+        body.intro-ready .hero-buttons { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 1.5s; }
+
+        .hero-headline .reveal-word {
+            display: inline-block;
+            transform: translateY(28px);
+            filter: blur(8px);
+            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
+            transition-delay: calc(0.62s + var(--w, 0) * 0.13s);
+        }
+
+        body.intro-ready .hero-headline .reveal-word {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .hero-stats {
+            transform: translateY(20px) scale(0.96);
+            transition: opacity 0.8s var(--ease-spring), transform 0.8s var(--ease-spring);
+            transition-delay: 1.15s;
+        }
+
+        body.intro-ready .hero-stats {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-cue {
+            transition: opacity 0.8s var(--ease-out);
+            transition-delay: 1.9s;
+        }
+
+        body.intro-ready .scroll-cue {
+            opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            header, .hero .eyebrow, .hero-headline .reveal-word, .hero-subheadline,
+            .hero-stats .stat-item, .hero-buttons, .scroll-cue, .preloader {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                transition: none !important;
+            }
+            .preloader { display: none !important; }
+        }
+
         /* ===== SCROLL PROGRESS BAR ===== */
         .scroll-progress {
             position: fixed;
@@ -134,7 +244,7 @@
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid transparent;
-            transition: all 0.4s var(--ease-out);
+            transition: opacity 0.7s var(--ease-out) 0.05s, transform 0.7s var(--ease-out) 0.05s, box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
         }
 
         header.scrolled {
@@ -335,40 +445,52 @@
             overflow: hidden;
         }
 
-        .blob {
+        .blob-wrap {
             position: absolute;
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .blob {
+            width: 100%;
+            height: 100%;
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             filter: blur(50px);
             opacity: 0.35;
-            z-index: 0;
-            pointer-events: none;
             animation: blobMorph 14s ease-in-out infinite alternate;
         }
 
-        .blob-1 {
+        .blob-wrap-1 {
             width: 420px;
             height: 420px;
             top: -10%;
             left: -8%;
+        }
+        .blob-1 {
             background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-purple));
             animation-duration: 16s;
         }
 
-        .blob-2 {
+        .blob-wrap-2 {
             width: 360px;
             height: 360px;
             bottom: -15%;
             right: -8%;
+        }
+        .blob-2 {
             background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-orange));
             animation-duration: 18s;
             animation-delay: -4s;
         }
 
-        .blob-3 {
+        .blob-wrap-3 {
             width: 260px;
             height: 260px;
             top: 40%;
             left: 45%;
+        }
+        .blob-3 {
             background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
             opacity: 0.2;
             animation-duration: 12s;
@@ -429,9 +551,9 @@
 
         .hero-headline {
             font-weight: 900;
-            line-height: 1.25;
+            line-height: 1.4;
             color: var(--color-text-dark);
-            letter-spacing: -1.5px;
+            letter-spacing: -0.5px;
             max-width: 900px;
             font-size: clamp(2.1rem, 5.5vw, 4rem);
         }
@@ -451,11 +573,11 @@
         }
 
         .hero-subheadline {
-            font-size: clamp(1rem, 1.6vw, 1.25rem);
+            font-size: clamp(1.05rem, 1.6vw, 1.3rem);
             color: var(--color-text-light);
             max-width: 700px;
-            font-weight: 400;
-            line-height: 1.8;
+            font-weight: 500;
+            line-height: 1.9;
         }
 
         .hero-stats {
@@ -602,9 +724,9 @@
         .about-title {
             font-size: clamp(1.9rem, 3.5vw, 2.6rem);
             font-weight: 900;
-            line-height: 1.35;
+            line-height: 1.45;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .about-title .highlight {
@@ -658,9 +780,26 @@
             text-align: center;
             font-size: clamp(1.9rem, 3.5vw, 2.6rem);
             font-weight: 900;
+            line-height: 1.4;
             margin-bottom: 3.5rem;
             color: var(--color-text-dark);
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
+        }
+
+        .title-bar {
+            display: block;
+            width: 44px;
+            height: 4px;
+            margin: 0 auto 1.25rem;
+            border-radius: 999px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.7s var(--ease-out);
+        }
+
+        [data-reveal].is-visible .title-bar {
+            transform: scaleX(1);
         }
 
         .services-grid {
@@ -724,9 +863,9 @@
         }
 
         .service-description {
-            font-size: 0.95rem;
+            font-size: 0.97rem;
             color: var(--color-text-light);
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* ===== PROCESS SECTION ===== */
@@ -799,9 +938,9 @@
         }
 
         .step-description {
-            font-size: 0.92rem;
+            font-size: 0.94rem;
             color: var(--color-text-light);
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* ===== CONTACT SECTION ===== */
@@ -816,17 +955,17 @@
         .contact-text h2 {
             font-size: clamp(1.9rem, 3.5vw, 2.6rem);
             font-weight: 900;
-            line-height: 1.35;
+            line-height: 1.45;
             margin-bottom: 1.75rem;
             color: var(--color-text-dark);
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .contact-text p {
-            font-size: 1rem;
+            font-size: 1.02rem;
             color: var(--color-text-light);
             margin-bottom: 2rem;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .contact-email {
@@ -1031,6 +1170,9 @@
     </style>
 </head>
 <body>
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <div class="preloader-mark"></div>
+    </div>
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- HEADER -->
@@ -1058,33 +1200,33 @@
 
     <!-- HERO SECTION -->
     <section id="hero" class="hero">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+        <div class="blob-wrap blob-wrap-1"><div class="blob blob-1"></div></div>
+        <div class="blob-wrap blob-wrap-2"><div class="blob blob-2"></div></div>
+        <div class="blob-wrap blob-wrap-3"><div class="blob blob-3"></div></div>
         <div class="cursor-glow" id="cursorGlow"></div>
 
-        <span class="eyebrow" data-reveal><span class="dot"></span>지금 상담 가능</span>
-        <h1 class="hero-headline" data-reveal style="--reveal-index:1">
-            당신의 사업을 <span class="gradient-text">웹으로 키우다</span>
+        <span class="eyebrow"><span class="dot"></span>지금 상담 가능</span>
+        <h1 class="hero-headline">
+            <span class="reveal-word" style="--w:0">당신의</span> <span class="reveal-word" style="--w:1">사업을</span> <span class="reveal-word gradient-text" style="--w:2">웹으로 키우다</span>
         </h1>
-        <p class="hero-subheadline" data-reveal style="--reveal-index:2">
+        <p class="hero-subheadline">
             웹사이트 외주 전문가입니다. 진행 중인 프로젝트를 통해 <br>실력을 직접 보여드립니다.
         </p>
-        <div class="hero-stats" data-reveal="scale" style="--reveal-index:3">
-            <div class="stat-item">
+        <div class="hero-stats">
+            <div class="stat-item" style="--i:0">
                 <div class="stat-number"><span class="mono-num counter" data-target="24">0</span>시간</div>
                 <div class="stat-label">이내 첫 응답</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="--i:1">
                 <div class="stat-number"><span class="mono-num counter" data-target="100">0</span>%</div>
                 <div class="stat-label">무제한 피드백 반영</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="--i:2">
                 <div class="stat-number mono-num">1:1</div>
                 <div class="stat-label">맞춤형 솔루션</div>
             </div>
         </div>
-        <div class="hero-buttons" data-reveal style="--reveal-index:4">
+        <div class="hero-buttons">
             <button class="btn-primary" onclick="scrollToContact()">지금 문의하기</button>
             <button class="btn-secondary" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })">더 알아보기</button>
         </div>
@@ -1141,7 +1283,7 @@
 
     <!-- SERVICES SECTION -->
     <section id="services">
-        <h2 class="section-title" data-reveal>어떤 서비스를 제공하나요</h2>
+        <h2 class="section-title" data-reveal><span class="title-bar"></span>어떤 서비스를 제공하나요</h2>
         <div class="services-grid">
             <div class="service-card tilt-card" data-reveal style="--reveal-index:0">
                 <span class="service-number mono-num">01</span>
@@ -1177,7 +1319,7 @@
     <!-- PROCESS SECTION -->
     <section class="process">
         <div class="process-inner" id="process">
-            <h2 class="section-title" data-reveal>프로젝트 진행 방식</h2>
+            <h2 class="section-title" data-reveal><span class="title-bar"></span>프로젝트 진행 방식</h2>
             <div class="process-grid">
                 <div class="process-step" data-reveal style="--reveal-index:0">
                     <div class="step-number mono-num">01</div>
@@ -1248,6 +1390,17 @@
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const hasHover = window.matchMedia('(hover: hover)').matches;
 
+        /* Preloader -> hero intro handoff */
+        (function initIntro() {
+            const preloader = document.getElementById('preloader');
+            const minDelay = new Promise(resolve => setTimeout(resolve, reduceMotion ? 0 : 500));
+            const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+            Promise.race([Promise.all([minDelay, fontsReady]), new Promise(r => setTimeout(r, 2000))]).then(() => {
+                preloader.classList.add('done');
+                document.body.classList.add('intro-ready');
+            });
+        })();
+
         function scrollToContact() {
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
@@ -1291,6 +1444,9 @@
         /* Navbar scrolled state + scroll progress */
         const header = document.getElementById('siteHeader');
         const progressBar = document.getElementById('scrollProgress');
+        const blobWraps = document.querySelectorAll('.blob-wrap');
+        const blobSpeeds = [0.18, 0.28, 0.4];
+        const heroEl = document.getElementById('hero');
 
         function onScroll() {
             const scrollY = window.scrollY;
@@ -1298,6 +1454,12 @@
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const pct = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
             progressBar.style.width = pct + '%';
+
+            if (!reduceMotion && scrollY < heroEl.offsetHeight * 1.3) {
+                blobWraps.forEach((wrap, i) => {
+                    wrap.style.transform = `translateY(${scrollY * blobSpeeds[i]}px)`;
+                });
+            }
         }
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
