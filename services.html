@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서비스 | WEB·BUILD</title>
+<meta name="description" content="반응형 웹사이트 디자인, 기능 구현, 홈페이지·포트폴리오 제작, 수정 및 유지보수. 필요한 범위만 정확하게 맡습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="progress" id="progress"></div>
+
+<header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="WEB·BUILD 홈">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32"><path d="M18.5 3 8 18.5h6.2L13 29l10.5-15.5h-6.2z"/></svg>
+            </span>
+            <span class="brand-name">WEB<i>·</i>BUILD</span>
+        </a>
+
+        <nav class="nav-desktop" aria-label="주요 메뉴">
+            <a href="about.html">소개</a>
+            <a href="services.html" aria-current="page">서비스</a>
+            <a href="process.html">진행방식</a>
+            <a href="contact.html">연락</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="btn btn--sm btn--accent" href="contact.html">문의하기</a>
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="메뉴 열기">
+                <span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="container mobile-menu-inner" aria-label="모바일 메뉴">
+        <a class="menu-link" href="index.html" style="--i:0"><span class="menu-num">01</span>홈</a>
+        <a class="menu-link" href="about.html" style="--i:1"><span class="menu-num">02</span>소개</a>
+        <a class="menu-link" href="services.html" style="--i:2" aria-current="page"><span class="menu-num">03</span>서비스</a>
+        <a class="menu-link" href="process.html" style="--i:3"><span class="menu-num">04</span>진행방식</a>
+        <a class="menu-link" href="contact.html" style="--i:4"><span class="menu-num">05</span>연락</a>
+        <div class="menu-foot">
+            <span class="label">CONTACT</span>
+            <a class="menu-mail" href="mailto:fkfyddk0822@gmail.com">fkfyddk0822@gmail.com</a>
+            <a class="btn btn--accent btn--sm" href="contact.html">문의하기</a>
+        </div>
+    </nav>
+</div>
+
+<main class="page" id="main">
+
+    <section class="page-head">
+        <div class="container">
+            <span class="label" data-reveal>SERVICES</span>
+            <h1 class="display">
+                <span class="w" data-reveal style="--i:1">필요한</span>
+                <span class="w" data-reveal style="--i:2">만큼,</span><br>
+                <span class="w accent-word" data-reveal style="--i:3">정확하게</span>
+            </h1>
+            <p class="lead" data-reveal style="--i:4">
+                전부 다 하는 대신, 맡은 범위를 확실하게 끝내는 쪽을 택합니다.
+                아래 네 가지가 주로 의뢰받는 작업입니다.
+            </p>
+        </div>
+    </section>
+
+    <section class="section--tight">
+        <div class="container">
+            <div class="rows">
+                <div class="row" data-reveal style="--i:0">
+                    <span class="row-num">01</span>
+                    <div>
+                        <h2 class="row-title">반응형 웹사이트 디자인</h2>
+                        <p class="row-desc">
+                            휴대폰에서 열었을 때 글자가 잘리거나 버튼이 눌리지 않는 사이트를 만들지 않습니다.
+                            가장 작은 화면부터 설계해 큰 화면으로 넓혀가는 방식으로 작업합니다.
+                        </p>
+                        <div class="row-tags">
+                            <span class="tag">모바일 우선 설계</span>
+                            <span class="tag">타이포그래피 정리</span>
+                            <span class="tag">접근성 고려</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" data-reveal style="--i:1">
+                    <span class="row-num">02</span>
+                    <div>
+                        <h2 class="row-title">기능 구현</h2>
+                        <p class="row-desc">
+                            보이는 화면만이 아니라 실제로 동작해야 하는 부분을 만듭니다.
+                            문의 폼, 지도, 예약 링크, 외부 서비스 연동처럼 손이 가는 작업을 맡습니다.
+                        </p>
+                        <div class="row-tags">
+                            <span class="tag">문의 · 신청 폼</span>
+                            <span class="tag">API 연동</span>
+                            <span class="tag">간단한 관리 화면</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" data-reveal style="--i:2">
+                    <span class="row-num">03</span>
+                    <div>
+                        <h2 class="row-title">홈페이지 · 포트폴리오 제작</h2>
+                        <p class="row-desc">
+                            사업 소개, 개인 포트폴리오, 브랜드 랜딩 페이지처럼 “보여주는 것”이 목적인 사이트를
+                            구성부터 함께 정리해 만듭니다. 어떤 내용을 넣을지 막막해도 괜찮습니다.
+                        </p>
+                        <div class="row-tags">
+                            <span class="tag">사업 홈페이지</span>
+                            <span class="tag">포트폴리오</span>
+                            <span class="tag">랜딩 페이지</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" data-reveal style="--i:3">
+                    <span class="row-num">04</span>
+                    <div>
+                        <h2 class="row-title">수정 · 유지보수</h2>
+                        <p class="row-desc">
+                            이미 있는 사이트를 손보는 일도 맡습니다. 디자인만 다듬는 작업, 기능 하나 추가,
+                            깨진 화면 수정처럼 규모가 작은 요청도 환영합니다.
+                        </p>
+                        <div class="row-tags">
+                            <span class="tag">부분 리뉴얼</span>
+                            <span class="tag">기능 추가</span>
+                            <span class="tag">오류 수정</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <div>
+                    <span class="label">FIT</span>
+                    <h2 class="h2" style="margin-top:1rem">이런 분들과 특히 잘 맞습니다</h2>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card" data-reveal style="--i:0">
+                    <h3>처음 만드는 분</h3>
+                    <p>무엇부터 정해야 할지 모르겠는 상태여도 괜찮습니다. 필요한 것을 함께 정리하는 것부터 시작합니다.</p>
+                </div>
+                <div class="card" data-reveal style="--i:1">
+                    <h3>급하게 필요한 분</h3>
+                    <p>한 페이지짜리 소개 사이트처럼 범위가 분명한 작업은 빠르게 진행할 수 있습니다.</p>
+                </div>
+                <div class="card" data-reveal style="--i:2">
+                    <h3>수정이 잦은 분</h3>
+                    <p>바꾸고 싶은 게 계속 생기는 편이라면 더 잘 맞습니다. 수정 횟수를 세지 않습니다.</p>
+                </div>
+                <div class="card" data-reveal style="--i:3">
+                    <h3>직접 소통을 원하는 분</h3>
+                    <p>영업 담당을 거치지 않고 만드는 사람과 바로 이야기하고 싶다면 편하게 연락 주세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section--tight">
+        <div class="container">
+            <a class="next" href="process.html">
+                <span>
+                    <span class="label">NEXT</span>
+                    <span class="next-title" style="display:block;margin-top:0.5rem">진행방식</span>
+                </span>
+                <span class="next-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <div class="cta-band">
+                <h2 class="h2" data-reveal>필요한 범위부터 정리해 드립니다</h2>
+                <p class="lead" style="text-align:center;--i:1" data-reveal>
+                    예산과 일정에 맞춰 어디까지 만들지 함께 정합니다.
+                </p>
+                <a class="btn btn--accent" href="contact.html" style="--i:2" data-reveal>문의하기</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <span class="label">CONTACT</span>
+                <a class="footer-mail" href="mailto:fkfyddk0822@gmail.com" style="display:block;margin-top:0.75rem">fkfyddk0822@gmail.com</a>
+            </div>
+            <nav class="footer-nav" aria-label="푸터 메뉴">
+                <a href="index.html">홈</a>
+                <a href="about.html">소개</a>
+                <a href="services.html">서비스</a>
+                <a href="process.html">진행방식</a>
+                <a href="contact.html">연락</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 WEB·BUILD — 웹사이트 전문 외주</span>
+            <span>만들어가는 과정으로 증명합니다</span>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
