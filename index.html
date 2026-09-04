@@ -3,353 +3,914 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>법무법인 프리미엄 | 강남 서초 리딩 로펌</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
+    <title>웹사이트 외주 전문가 | 포트폴리오 사이트 제작</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@300;400;600;700&display=swap');
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --gold: #D4AF37;
-            --dark-navy: #0F172A;
-            --deep-black: #050505;
+            --color-off-white: #f9f7f4;
+            --color-dark: #1a1a1a;
+            --color-accent-blue: #3b82f6;
+            --color-accent-purple: #a855f7;
+            --color-accent-pink: #ec4899;
+            --color-accent-orange: #f97316;
+            --color-text-light: #666666;
+            --color-text-dark: #1a1a1a;
+            --color-border: #e5e5e5;
         }
 
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--deep-black); color: #e2e8f0; overflow-x: hidden; }
-        .serif { font-family: 'Noto Serif KR', serif; }
-        
-        /* 페이지 전환용 로딩 오버레이 */
-        #page-loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--deep-black); z-index: 1000;
-            display: none; opacity: 0; transition: opacity 0.4s ease;
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: var(--color-off-white);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* 페이지 컨테이너 */
-        .page-content { display: none; min-height: 100vh; animation: pageIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .page-content.active { display: block; }
-
-        @keyframes pageIn {
-            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: rgba(249, 247, 244, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        /* 디자인 디테일 */
-        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F5E0A3 50%, #B8860B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .subpage-header { height: 45vh; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .subpage-header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--deep-black)); }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-        .nav-link.active { color: var(--gold); }
-        .nav-link.active::after { content: ''; display: block; width: 100%; height: 2px; background: var(--gold); margin-top: 4px; }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo-symbol {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-accent-blue);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* ===== HERO SECTION ===== */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            margin-top: 8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+        }
+
+        .hero-headline {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-text-dark);
+            letter-spacing: -1px;
+            max-width: 900px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 50%, var(--color-accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subheadline {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+            max-width: 700px;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--color-accent-blue);
+            border: 2px solid var(--color-accent-blue);
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-accent-blue);
+            color: white;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            background: var(--color-dark);
+            color: #e5e5e5;
+            margin: 4rem 0;
+            margin-left: -2rem;
+            margin-right: -2rem;
+            padding: 6rem 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-title .highlight {
+            background: linear-gradient(90deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #b3b3b3;
+            margin-bottom: 2rem;
+        }
+
+        .about-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-list-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .list-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--color-text-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-accent-blue);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(2) {
+            border-left-color: var(--color-accent-purple);
+        }
+
+        .service-card:nth-child(3) {
+            border-left-color: var(--color-accent-pink);
+        }
+
+        .service-card:nth-child(4) {
+            border-left-color: var(--color-accent-orange);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(168, 85, 247, 0.05));
+            border-radius: 0 0 0 100%;
+            pointer-events: none;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== PROCESS SECTION ===== */
+        .process {
+            background: var(--color-off-white);
+            margin-top: 6rem;
+            margin-left: -2rem;
+            margin-right: -2rem;
+            padding: 6rem 2rem;
+        }
+
+        .process-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--color-text-dark);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem 1.5rem;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-accent-blue), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 6rem;
+        }
+
+        .contact-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+            color: var(--color-text-dark);
+        }
+
+        .contact-text p {
+            font-size: 1rem;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-email:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--color-dark);
+            color: #999;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 2rem;
+            }
+
+            .hero-subheadline {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-title,
+            .process-title,
+            .about-title,
+            .contact-text h2 {
+                font-size: 2rem;
+            }
+
+            .contact {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .hero {
+                margin-top: 6rem;
+                padding: 2rem 1rem;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-
-    <div id="page-loader"></div>
-
-    <!-- 네비게이션 -->
-    <nav class="fixed w-full z-[100] bg-[#050505]/90 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-[1400px] mx-auto px-8 h-24 flex items-center justify-between">
-            <div class="text-2xl md:text-3xl serif font-bold tracking-tighter cursor-pointer group" onclick="navigate('home')">
-                <span class="text-white group-hover:text-amber-500 transition-colors tracking-widest">PREMIUM</span>
-                <span class="text-amber-600 font-light">LAW</span>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-symbol">⚡</div>
+                <div class="logo-text">WEB·BUILD</div>
             </div>
-            <div class="hidden lg:flex gap-12 text-[14px] font-semibold tracking-widest items-center">
-                <a href="javascript:void(0)" onclick="navigate('home')" class="nav-link active" id="btn-home">홈으로</a>
-                <a href="javascript:void(0)" onclick="navigate('about')" class="nav-link" id="btn-about">로펌 인사이트</a>
-                <a href="javascript:void(0)" onclick="navigate('portfolio')" class="nav-link" id="btn-portfolio">승소 기록관</a>
-                <a href="javascript:void(0)" onclick="navigate('reviews')" class="nav-link" id="btn-reviews">의뢰인의 목소리</a>
-                <a href="javascript:void(0)" onclick="navigate('contact')" class="bg-amber-600 px-8 py-3 text-white hover:bg-amber-700 transition-all rounded-sm ml-4">상담 예약하기</a>
+            <ul>
+                <li><a href="#hero">소개</a></li>
+                <li><a href="#services">서비스</a></li>
+                <li><a href="#process">진행방식</a></li>
+                <li><a href="#contact">연락</a></li>
+                <li><button class="cta-button" onclick="scrollToContact()">문의하기</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero">
+        <h1 class="hero-headline fade-in-up">
+            당신의 사업을 <span class="gradient-text">웹으로 키우다</span>
+        </h1>
+        <p class="hero-subheadline fade-in-up delay-1">
+            웹사이트 외주 전문가입니다. 진행 중인 프로젝트를 통해 <br>실력을 직접 보여드립니다.
+        </p>
+        <div class="hero-stats fade-in-up delay-2">
+            <div class="stat-item">
+                <div class="stat-number">24시간</div>
+                <div class="stat-label">이내 첫 응답</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">무제한 피드백 반영</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1:1</div>
+                <div class="stat-label">맞춤형 솔루션</div>
             </div>
         </div>
-    </nav>
+        <div class="hero-buttons fade-in-up delay-3">
+            <button class="btn-primary" onclick="scrollToContact()">지금 문의하기</button>
+            <button class="btn-secondary" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })">더 알아보기</button>
+        </div>
+    </section>
 
-    <!-- [1. 메인 홈] -->
-    <section id="page-home" class="page-content active">
-        <div class="relative h-screen flex items-center justify-center overflow-hidden">
-            <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-40">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-legal-clerk-working-in-a-law-office-33314-large.mp4" type="video/mp4">
-            </video>
-            <div class="relative z-10 text-center px-6" data-aos="fade-up">
-                <h1 class="text-5xl md:text-[8rem] serif font-bold leading-none mb-10 tracking-tighter">
-                    <span class="gold-gradient italic">변론</span> <span class="text-white">그 이상의 가치.</span>
-                </h1>
-                <p class="text-lg md:text-2xl font-light text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
-                    법무법인 프리미엄은 단순한 법률 자문을 넘어, 의뢰인의 삶을 보호하는 최후의 요새입니다. <br> 
-                    치밀한 전략과 압도적인 경험으로 서초동 법조타운의 새로운 기준을 제시합니다.
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div>
+                <h2 class="about-title">
+                    완성작 대신,<br><span class="highlight">과정을 보여드립니다</span>
+                </h2>
+                <p class="about-text">
+                    포트폴리오는 따로 없습니다. 대신 의뢰인분의 의견을 반영하며 함께 성장하는 웹사이트를 만들어갑니다. 이 과정 자체가 가장 좋은 증명입니다.
                 </p>
-                <div class="flex flex-col md:flex-row gap-6 justify-center">
-                    <button onclick="navigate('portfolio')" class="px-12 py-5 border border-amber-600 text-amber-500 font-bold hover:bg-amber-600 hover:text-white transition-all text-sm tracking-[0.2em]">승소 사례 확인</button>
-                    <button onclick="navigate('contact')" class="px-12 py-5 bg-amber-600 text-white font-bold text-sm tracking-[0.2em] shadow-2xl">긴급 상담 예약</button>
-                </div>
+                <p class="about-text">
+                    작은 프로젝트부터 꼼꼼하게. 세부적인 요구사항을 놓치지 않고, 응답성과 피드백 반영을 최우선으로 합니다.
+                </p>
             </div>
-        </div>
-    </section>
-
-    <!-- [2. 로펌 소개] -->
-    <section id="page-about" class="page-content">
-        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069');">
-            <div class="relative z-10 px-6">
-                <p class="gold-text tracking-[0.5em] text-sm mb-4">FIRM INSIGHT</p>
-                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic" data-aos="fade-up">로펌 인사이트</h2>
-            </div>
-        </header>
-        <div class="max-w-[1200px] mx-auto px-8 py-32">
-            <div class="grid lg:grid-cols-12 gap-20 items-start">
-                <div class="lg:col-span-5 sticky top-32">
-                    <h3 class="text-amber-600 font-bold tracking-widest text-sm mb-6 uppercase">우리의 철학</h3>
-                    <p class="text-5xl serif font-bold leading-tight mb-10 text-white">가장 어두운 순간,<br>당신의 곁을 지키는<br>정교한 법률 솔루션.</p>
-                    <div class="space-y-8 text-gray-400 leading-relaxed text-lg">
-                        <p>우리는 모든 사건 뒤에 한 사람의 인생과 가문의 명예가 걸려 있음을 누구보다 잘 알고 있습니다. 이것이 우리가 타협 없는 완벽함을 추구하는 이유입니다.</p>
-                        <p>법무법인 프리미엄은 대형 로펌의 체계적인 시스템과 강소 로펌의 밀착 대응을 결합하여, 의뢰인 한 분만을 위한 전담 태스크포스(TF)를 구성합니다.</p>
+            <div class="about-list">
+                <div class="about-list-item">
+                    <div class="list-icon">✓</div>
+                    <div>
+                        <strong>빠른 응답</strong>
+                        <p style="font-size: 0.9rem; color: #999; margin-top: 0.25rem;">24시간 이내 첫 회신</p>
                     </div>
                 </div>
-                <div class="lg:col-span-7 grid gap-12">
-                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
-                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">01. 전방위적 증거 분석 시스템</h4>
-                        <p class="text-gray-400 leading-loose">자체 디지털 포렌식 팀과 회계 분석 전문가가 협업하여, 검찰의 논리를 무너뜨릴 스모킹 건을 찾아냅니다. 우리는 보이지 않는 1%의 증거에 집착합니다.</p>
+                <div class="about-list-item">
+                    <div class="list-icon">✓</div>
+                    <div>
+                        <strong>무제한 피드백</strong>
+                        <p style="font-size: 0.9rem; color: #999; margin-top: 0.25rem;">수정 사항을 모두 반영</p>
                     </div>
-                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
-                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">02. 판례 데이터베이스 초정밀 매칭</h4>
-                        <p class="text-gray-400 leading-loose">최근 15년간의 전국 법원 판례 30,000건을 AI로 분석하여, 현재 사건을 담당하는 재판부의 성향과 유사 사건의 승소 핵심 포인트를 도출합니다.</p>
+                </div>
+                <div class="about-list-item">
+                    <div class="list-icon">✓</div>
+                    <div>
+                        <strong>1:1 맞춤 소통</strong>
+                        <p style="font-size: 0.9rem; color: #999; margin-top: 0.25rem;">밀착된 커뮤니케이션</p>
                     </div>
-                    <div class="glass-card p-12 hover:border-amber-600 transition-colors duration-500">
-                        <h4 class="text-2xl font-bold mb-6 text-white serif tracking-wider">03. 의뢰인 안심 밀착 케어</h4>
-                        <p class="text-gray-400 leading-loose">사무장이 대리하지 않습니다. 모든 소통은 담당 변호사가 직접 수행하며, 사건의 진행 상황을 매주 상세 리포트로 제공하여 의뢰인의 불안을 제거합니다.</p>
+                </div>
+                <div class="about-list-item">
+                    <div class="list-icon">✓</div>
+                    <div>
+                        <strong>기술 지원</strong>
+                        <p style="font-size: 0.9rem; color: #999; margin-top: 0.25rem;">완성 후에도 계속 도움</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- [3. 승소 기록관] -->
-    <section id="page-portfolio" class="page-content">
-        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070');">
-            <div class="relative z-10 px-6">
-                <p class="gold-text tracking-[0.5em] text-sm mb-4">SUCCESS ARCHIVE</p>
-                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic">승소 기록관</h2>
+    <!-- SERVICES SECTION -->
+    <section id="services">
+        <h2 class="services-title">어떤 서비스를 제공하나요</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3 class="service-title">반응형 웹사이트 디자인</h3>
+                <p class="service-description">
+                    모바일, 태블릿, PC에서 완벽하게 작동하는 웹사이트 디자인. 사용자 경험을 최우선으로 합니다.
+                </p>
             </div>
-        </header>
-        <div class="max-w-[1400px] mx-auto px-8 py-32">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-b border-white/10 pb-12">
-                <h3 class="text-5xl font-bold serif">결과로 증명된 <span class="gold-gradient tracking-tighter">압도적 성과</span></h3>
-                <div class="text-gray-500 font-bold uppercase tracking-widest text-xs">총 1,245건 이상의 성공 사례 보유</div>
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3 class="service-title">기능 구현</h3>
+                <p class="service-description">
+                    폼 제출, API 연동, 결제 시스템 등 필요한 모든 기능을 구현합니다.
+                </p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5">
-                <!-- 사례 1 -->
-                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
-                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">형사 방어 전문</p>
-                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">대형 경제범죄 배임 혐의 <br> 수사 단계 무혐의 종결</h4>
-                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기관</span> <span>서울중앙지검</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 120억 원</span></li>
-                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>불기소 (혐의없음)</span></li>
-                    </ul>
-                    <p class="text-gray-500 leading-relaxed text-sm">복잡한 자금 흐름을 회계적으로 재구성하여 통상적인 경영 판단임을 입증, 기소 전 사건을 완벽히 방어했습니다.</p>
-                </div>
-                <!-- 사례 2 -->
-                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
-                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">성범죄 전담</p>
-                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">강제추행 무고 사건 <br> 1심 무죄 판결 확정</h4>
-                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울동부지법</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기간</span> <span>14개월 집중 수행</span></li>
-                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>전부 무죄</span></li>
-                    </ul>
-                    <p class="text-gray-500 leading-relaxed text-sm">상대방 진술의 모순점을 법의학적 증거와 CCTV 동선 분석으로 파고들어 억울한 의뢰인의 누명을 벗겨냈습니다.</p>
-                </div>
-                <!-- 사례 3 -->
-                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500">
-                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">고액 자산 상속</p>
-                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">유류분 반환 청구 소송 <br> 피고 측 전부 방어 승소</h4>
-                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울가정법원</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 85억 원</span></li>
-                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>청구 기각 (승소)</span></li>
-                    </ul>
-                    <p class="text-gray-500 leading-relaxed text-sm">상대방의 유류분 청구액을 정교한 기여분 산정 논리로 방어하여 가문의 자산을 온전히 보존했습니다.</p>
-                </div>
-                <!-- 사례 4 -->
-                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500 border-t border-white/5">
-                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">기업 분쟁 전담</p>
-                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">경영권 분쟁 및 주주권 <br> 확인 소송 전부 승소</h4>
-                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>기관</span> <span>서울중앙지법</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>가액</span> <span>약 300억 원</span></li>
-                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>원고 승소</span></li>
-                    </ul>
-                    <p class="text-gray-500 leading-relaxed text-sm">적대적 M&A 시도를 법리적 결함 발견으로 차단하고 대주주의 경영권을 완벽하게 방어한 사례입니다.</p>
-                </div>
-                <!-- 사례 5 -->
-                <div class="bg-dark p-12 hover:bg-white/5 transition-all duration-500 border-t border-white/5">
-                    <p class="text-amber-600 font-bold text-xs mb-6 tracking-widest">부동산 전문</p>
-                    <h4 class="text-2xl font-bold text-white mb-8 serif leading-snug">재개발 구역 토지 인도 <br> 강제 집행 정지 및 승소</h4>
-                    <ul class="text-gray-400 text-sm space-y-4 mb-10">
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>법원</span> <span>서울서부지법</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-2"><span>대상</span> <span>대규모 상가 단지</span></li>
-                        <li class="flex justify-between font-bold text-white"><span>결과</span> <span>승소 및 합의 유도</span></li>
-                    </ul>
-                    <p class="text-gray-500 leading-relaxed text-sm">복잡한 권리 관계를 분석하여 시행사의 무리한 요구를 차단하고 의뢰인들에게 최대 보상금을 안겨드렸습니다.</p>
-                </div>
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3 class="service-title">홈페이지 제작</h3>
+                <p class="service-description">
+                    사업 홈페이지, 포트폴리오, 블로그 등 다양한 형태의 웹사이트를 제작합니다.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3 class="service-title">유지보수 & 수정</h3>
+                <p class="service-description">
+                    완성 후에도 새로운 기능 추가, 버그 수정 등 계속해서 지원합니다.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- [4. 의뢰인의 목소리] -->
-    <section id="page-reviews" class="page-content">
-        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1556155092-490a1ba16284?q=80&w=2070');">
-            <div class="relative z-10 px-6">
-                <p class="gold-text tracking-[0.5em] text-sm mb-4">CLIENT TESTIMONIALS</p>
-                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic">의뢰인의 목소리</h2>
+    <!-- PROCESS SECTION -->
+    <section id="process" class="process">
+        <h2 class="process-title">프로젝트 진행 방식</h2>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h3 class="step-title">요구사항 파악</h3>
+                <p class="step-description">
+                    상세한 상담을 통해 프로젝트의 목표와 필요한 기능을 정확히 이해합니다.
+                </p>
             </div>
-        </header>
-        <div class="max-w-[1000px] mx-auto px-8 py-32">
-            <div class="text-center mb-32">
-                <h3 class="text-4xl serif font-bold mb-8 italic">"우리는 수치보다 사람의 회복에 집중합니다."</h3>
-                <p class="text-gray-500 max-w-2xl mx-auto">의뢰인이 다시 평범한 일상으로 돌아가는 것, 그것이 법무법인 프리미엄이 존재하는 이유입니다.</p>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h3 class="step-title">구조 설계</h3>
+                <p class="step-description">
+                    사이트맵과 와이어프레임을 작성하여 구조를 명확히 합니다.
+                </p>
             </div>
-            
-            <div class="space-y-16">
-                <!-- 리뷰 1 -->
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-4 text-center">
-                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
-                        <p class="text-white font-bold">IT 기업 CEO K님</p>
-                        <p class="text-gray-500 text-xs">기업 법무 상담</p>
-                    </div>
-                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
-                        "억울한 횡령 배임 혐의로 회사가 흔들릴 때, 여기 변호사님들은 단순한 법률 대리인이 아니라 비즈니스 파트너였습니다. 검찰 수사 단계에서 모든 의혹을 해소해 주셔서 큰 피해 없이 사업을 계속할 수 있었습니다."
-                    </div>
-                </div>
-                <!-- 리뷰 2 -->
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-4 text-center">
-                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
-                        <p class="text-white font-bold">의뢰인 P님</p>
-                        <p class="text-gray-500 text-xs">형사 무죄 성공</p>
-                    </div>
-                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
-                        "다른 곳에선 다들 유죄를 인정하고 형량을 낮추자고 했지만, 이곳만큼은 저의 진실을 믿어주셨습니다. 변호사님이 직접 현장을 수십 번 가시는 정성을 보고 결과를 예감했습니다. 결국 무죄 판결을 받았을 때 정말 감사했습니다."
-                    </div>
-                </div>
-                <!-- 리뷰 3 -->
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-4 text-center">
-                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
-                        <p class="text-white font-bold">자산가 L님</p>
-                        <p class="text-gray-500 text-xs">상속 재산 분쟁</p>
-                    </div>
-                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
-                        "상속 문제로 가족 간의 갈등이 극에 달했을 때, 가장 품격 있고 합리적인 대안을 제시해 주셨습니다. 무리한 소송보다 실익 중심의 협상을 이끌어 주셔서 자산도 지키고 가족 관계도 파탄 나지 않게 도와주셨습니다."
-                    </div>
-                </div>
-                <!-- 리뷰 4 -->
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-4 text-center">
-                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
-                        <p class="text-white font-bold">건물주 H님</p>
-                        <p class="text-gray-500 text-xs">부동산 명도 소송</p>
-                    </div>
-                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
-                        "명도 소송이 이렇게 빨리 끝날 줄 몰랐습니다. 상대방의 허점을 정확히 찌르는 법리 전개 덕분에 질질 끌던 사건이 단기간에 조정으로 마무리되었습니다. 역시 서초동 베테랑은 다릅니다."
-                    </div>
-                </div>
-                <!-- 리뷰 5 -->
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-4 text-center">
-                        <div class="text-amber-600 font-bold mb-2">★★★★★</div>
-                        <p class="text-white font-bold">전문직 D님</p>
-                        <p class="text-gray-500 text-xs">의료 과실 방어</p>
-                    </div>
-                    <div class="md:col-span-8 glass-card p-12 text-gray-300 leading-loose">
-                        "의료 과실 청구로 면허 취소 위기까지 갔지만, 변호사님이 의학적인 지식까지 완벽하게 공부해서 대응하시는 모습에 전율을 느꼈습니다. 결과적으로 과실 없음 판결을 받아내며 제 커리어를 지켰습니다."
-                    </div>
-                </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h3 class="step-title">디자인 & 개발</h3>
+                <p class="step-description">
+                    아름다운 디자인으로 표현하고, 기술적으로 완벽하게 구현합니다.
+                </p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h3 class="step-title">피드백 반영</h3>
+                <p class="step-description">
+                    수정 사항을 신속하게 반영하여 최종 완성합니다.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- [5. 상담 예약] -->
-    <section id="page-contact" class="page-content">
-        <header class="subpage-header" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=2074');">
-            <div class="relative z-10 px-6">
-                <p class="gold-text tracking-[0.5em] text-sm mb-4">GET COUNSEL</p>
-                <h2 class="text-5xl md:text-7xl serif font-bold text-white tracking-widest italic uppercase">법률 상담 예약</h2>
-            </div>
-        </header>
-        <div class="max-w-[1400px] mx-auto px-8 py-32">
-            <div class="grid lg:grid-cols-2 gap-32">
-                <div class="text-left">
-                    <h3 class="text-5xl serif font-bold mb-12 leading-tight">당신의 시간이<br><span class="gold-gradient">승소의 골든타임</span>입니다.</h3>
-                    <div class="space-y-12">
-                        <div class="flex items-start gap-8">
-                            <i data-lucide="phone" class="text-amber-600 w-10 h-10"></i>
-                            <div>
-                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-2">긴급 직통 번호</p>
-                                <p class="text-3xl font-bold text-white">02-555-9876</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-8">
-                            <i data-lucide="map-pin" class="text-amber-600 w-10 h-10"></i>
-                            <div>
-                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-2">오시는 길</p>
-                                <p class="text-xl font-bold text-white leading-relaxed">서울 서초구 서초대로 311, <br>법조타워 1502호 (강남역 5번 출구 앞)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-16 text-black shadow-2xl">
-                    <h4 class="text-3xl serif font-bold mb-12 italic">1:1 보안 상담 신청</h4>
-                    <form class="grid gap-10">
-                        <input type="text" placeholder="의뢰인 성함" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light">
-                        <input type="tel" placeholder="연락처 (핸드폰)" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light">
-                        <select class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light text-gray-400">
-                            <option>사건 분야 선택</option>
-                            <option>긴급 형사 방어</option>
-                            <option>기업 법무 / 경제 범죄</option>
-                            <option>상속 / 이혼 / 가사</option>
-                            <option>부동산 / 민사 분쟁</option>
-                        </select>
-                        <textarea placeholder="상담 내용을 간략히 입력해 주세요 (보안 보장)" rows="4" class="border-b-2 border-black/10 py-4 focus:border-amber-600 outline-none transition-all text-xl font-light"></textarea>
-                        <button type="button" onclick="alert('전담 변호사에게 보안 전송되었습니다.')" class="bg-black text-white py-6 text-xl font-bold tracking-widest hover:bg-amber-600 transition-all uppercase">신청하기</button>
-                    </form>
-                </div>
-            </div>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <div class="contact-text">
+            <h2>같이 지어볼까요?</h2>
+            <p>
+                작은 프로젝트부터 큰 규모의 웹사이트까지 모두 함께합니다. 편하게 연락주세요.
+            </p>
+            <a href="mailto:fkfyddk0822@gmail.com" class="contact-email">fkfyddk0822@gmail.com</a>
         </div>
+        <form class="contact-form" onsubmit="handleFormSubmit(event)">
+            <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-dark); margin-bottom: 1rem;">간단한 상담 신청</h3>
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" placeholder="이름을 입력해 주세요" required>
+            </div>
+            <div class="form-group">
+                <label>이메일</label>
+                <input type="email" placeholder="이메일 주소" required>
+            </div>
+            <div class="form-group">
+                <label>프로젝트 내용</label>
+                <textarea placeholder="어떤 웹사이트가 필요하신가요?" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">상담 신청하기</button>
+        </form>
     </section>
 
-    <footer class="py-20 border-t border-white/5 bg-black text-center text-gray-600 text-[11px] tracking-[0.4em] uppercase">
-        © 2024 LAW FIRM PREMIUM. 모든 변론은 진실을 향합니다.
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 웹사이트 외주 전문가 | fkfyddk0822@gmail.com</p>
+        <p style="margin-top: 1rem; font-size: 12px;">진행 중인 프로젝트를 통해 실력을 증명합니다.</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
-        lucide.createIcons();
-
-        function navigate(pageId) {
-            const loader = document.getElementById('page-loader');
-            loader.style.display = 'block';
-            setTimeout(() => { loader.style.opacity = '1'; }, 10);
-
-            setTimeout(() => {
-                document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-
-                document.getElementById('page-' + pageId).classList.add('active');
-                if(document.getElementById('btn-' + pageId)) {
-                    document.getElementById('btn-' + pageId).classList.add('active');
-                }
-
-                window.scrollTo(0, 0);
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 400);
-            }, 600);
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            const message = form.querySelector('textarea').value;
+
+            const mailtoLink = `mailto:fkfyddk0822@gmail.com?subject=${encodeURIComponent(`웹사이트 상담 신청: ${name}`)}&body=${encodeURIComponent(`이름: ${name}\n이메일: ${email}\n\n프로젝트 내용:\n${message}`)}`;
+
+            window.location.href = mailtoLink;
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .process-step').forEach(el => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
