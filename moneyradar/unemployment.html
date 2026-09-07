@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>실업급여 계산기 | 구직급여 일액·수급기간 계산 — 머니레이더</title>
+<meta name="description" content="이직 전 평균 급여와 고용보험 가입기간을 입력하면 실업급여(구직급여) 1일 지급액과 소정급여일수, 총 수령액을 계산합니다. 상·하한액 적용 여부도 함께 확인하세요.">
+<meta name="keywords" content="실업급여 계산기, 구직급여 계산, 실업급여 얼마, 소정급여일수">
+<meta property="og:type" content="website">
+<meta property="og:title" content="실업급여 계산기 — 머니레이더">
+<meta property="og:description" content="1일 구직급여액과 소정급여일수로 총 수령액을 계산합니다">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/moneyradar.css">
+</head>
+<body data-calc="unemployment">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html" aria-label="머니레이더 홈">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/><path d="M12 12V3.2A8.8 8.8 0 0 1 20.2 9z" fill="currentColor"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg>
+            </span>
+            <span class="brand-name">머니레이더</span>
+        </a>
+        <nav class="nav-desktop" aria-label="주요 메뉴">
+            <a href="index.html" aria-current="page">계산기</a>
+            <a href="benefits.html">혜택 찾기</a>
+            <a href="guides.html">가이드</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="메뉴 열기">
+            <span></span><span></span>
+        </button>
+    </div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
+        <a href="index.html">계산기</a>
+        <a href="benefits.html">혜택 찾기</a>
+        <a href="guides.html">가이드</a>
+    </nav>
+</header>
+
+<main id="main">
+    <div class="wrap">
+        <div class="calc-layout">
+
+            <form class="panel" id="calcForm" novalidate>
+                <div class="panel-head">
+                    <h2>실업급여 계산기</h2>
+                    <p>구직급여 일액과 받을 수 있는 기간을 계산합니다</p>
+                </div>
+                <div class="panel-body">
+
+                    <div class="field">
+                        <label for="monthlyWage">이직 전 3개월 평균 월급여 (세전)</label>
+                        <div class="input-wrap">
+                            <input type="text" id="monthlyWage" name="monthlyWage" data-money inputmode="numeric"
+                                   value="3,000,000" autocomplete="off">
+                            <span class="suffix">원</span>
+                        </div>
+                        <div class="chips">
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="2500000">250만</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="3000000">300만</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="4000000">400만</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="6000000">600만</button>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="age">이직 당시 만 나이</label>
+                        <div class="input-wrap">
+                            <input type="text" id="age" name="age" inputmode="numeric" value="35" autocomplete="off">
+                            <span class="suffix">세</span>
+                        </div>
+                        <p class="hint">만 50세를 기준으로 소정급여일수가 달라집니다.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="insuredYears">고용보험 가입기간</label>
+                        <select id="insuredYears" name="insuredYears">
+                            <option value="0.7">1년 미만</option>
+                            <option value="2">1년 이상 ~ 3년 미만</option>
+                            <option value="4" selected>3년 이상 ~ 5년 미만</option>
+                            <option value="7">5년 이상 ~ 10년 미만</option>
+                            <option value="12">10년 이상</option>
+                        </select>
+                        <p class="hint">여러 직장의 가입기간을 합산합니다.</p>
+                    </div>
+
+                    <div class="field">
+                        <label style="display:flex;align-items:center;gap:9px;font-weight:500;cursor:pointer">
+                            <input type="checkbox" id="isDisabled" name="isDisabled" style="width:auto">
+                            <span>장애인에 해당합니다</span>
+                        </label>
+                        <p class="hint">장애인은 만 50세 이상과 동일한 소정급여일수가 적용됩니다.</p>
+                    </div>
+
+                    <div class="btn-row">
+                        <button type="button" class="btn btn--ghost btn--sm" data-copy-link>결과 링크 복사</button>
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                <div class="panel" id="result" aria-live="polite"></div>
+
+                <a class="affiliate" href="https://www.work24.go.kr" target="_blank" rel="noopener noreferrer">
+                    <span class="ico" aria-hidden="true">→</span>
+                    <span>
+                        <span class="t">실업급여 신청은 고용24에서</span>
+                        <span class="d">워크넷 구직등록 후 수급자격 신청 교육을 온라인으로 받을 수 있습니다</span>
+                    </span>
+                    <span class="go">바로가기</span>
+                </a>
+                <p class="affiliate-label">※ 제휴 링크 자리입니다. 제휴 계약 후 링크와 문구를 교체하세요.</p>
+
+                <div class="ad-slot">광고 영역 (승인 후 노출)</div>
+            </div>
+
+        </div>
+
+        <section class="section" style="border-top:1px solid var(--line)">
+            <h2 style="font-size:22px">실업급여는 이렇게 계산됩니다</h2>
+            <div class="article" style="padding-top:16px;margin:0">
+                <p>구직급여 1일 지급액은 <strong>이직 전 평균임금의 60%</strong>입니다. 다만 아무리 급여가 높아도 <strong>1일 66,000원</strong>을 넘지 못하고, 반대로 아무리 낮아도 최저임금의 80%(8시간 기준)로 계산한 하한액 아래로는 내려가지 않습니다.</p>
+                <p>받을 수 있는 기간(소정급여일수)은 <strong>이직 당시 만 나이</strong>와 <strong>고용보험 가입기간</strong> 두 가지로만 정해집니다. 50세 미만은 최소 120일에서 최대 240일, 50세 이상 또는 장애인은 최대 270일까지 받을 수 있습니다.</p>
+                <div class="callout"><b>자발적 퇴사는 원칙적으로 대상이 아닙니다.</b> 다만 계약만료, 권고사직, 임금체불, 통근 곤란(왕복 3시간 이상), 질병 등 정당한 사유가 인정되면 수급이 가능합니다.</div>
+
+                <h2>자주 묻는 질문</h2>
+                <h3>피보험 단위기간 180일은 어떻게 세나요?</h3>
+                <p>이직 전 18개월 동안 보수를 받은 날을 합산해 180일 이상이어야 합니다. 주 5일 근무자는 보통 7~8개월 정도 근무하면 충족됩니다.</p>
+                <h3>퇴사 후 언제까지 신청해야 하나요?</h3>
+                <p>이직일 다음 날부터 12개월 안에 받아야 합니다. 이 기간이 지나면 소정급여일수가 남아 있어도 지급이 종료되므로 퇴사 직후 신청하는 것이 유리합니다.</p>
+                <h3>실업급여를 받으면 국민연금이 끊기나요?</h3>
+                <p>실업크레딧을 신청하면 보험료의 75%를 국가가 지원해 가입 기간을 이어갈 수 있습니다. 최대 12개월까지 지원됩니다.</p>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-about">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/><path d="M12 12V3.2A8.8 8.8 0 0 1 20.2 9z" fill="currentColor"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg>
+                </span>
+                <span class="brand-name">머니레이더</span>
+            </a>
+            <p>모든 계산은 브라우저 안에서 처리되며 입력값은 서버로 전송되지 않습니다.</p>
+        </div>
+        <div>
+            <h4>계산기</h4>
+            <a href="salary.html">연봉 실수령액</a>
+            <a href="severance.html">퇴직금</a>
+            <a href="unemployment.html">실업급여</a>
+            <a href="insurance.html">4대보험</a>
+            <a href="parental-leave.html">육아휴직급여</a>
+        </div>
+        <div>
+            <h4>사이트</h4>
+            <a href="benefits.html">혜택 찾기</a>
+            <a href="guides.html">가이드</a>
+            <a href="privacy.html">개인정보처리방침</a>
+        </div>
+    </div>
+    <div class="wrap footer-bottom">
+        <span>© <span id="year">2026</span> 머니레이더</span>
+        <span>계산 결과는 참고용 추정치이며 법적 효력이 없습니다</span>
+    </div>
+</footer>
+
+<script src="assets/js/calc-core.js"></script>
+<script src="assets/js/calc-page.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

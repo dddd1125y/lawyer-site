@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4대보험 계산기 | 근로자·사업주 부담금 비교 — 머니레이더</title>
+<meta name="description" content="월 급여를 입력하면 국민연금·건강보험·장기요양·고용보험·산재보험을 근로자와 사업주 부담으로 나눠 계산합니다. 국민연금 기준소득월액 상하한도 자동 반영됩니다.">
+<meta name="keywords" content="4대보험 계산기, 4대보험 요율, 국민연금 계산, 건강보험료 계산, 사업주 부담금">
+<meta property="og:type" content="website">
+<meta property="og:title" content="4대보험 계산기 — 머니레이더">
+<meta property="og:description" content="근로자와 사업주가 각각 얼마를 내는지 항목별로 보여줍니다">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/moneyradar.css">
+</head>
+<body data-calc="insurance">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html" aria-label="머니레이더 홈">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/><path d="M12 12V3.2A8.8 8.8 0 0 1 20.2 9z" fill="currentColor"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg>
+            </span>
+            <span class="brand-name">머니레이더</span>
+        </a>
+        <nav class="nav-desktop" aria-label="주요 메뉴">
+            <a href="index.html" aria-current="page">계산기</a>
+            <a href="benefits.html">혜택 찾기</a>
+            <a href="guides.html">가이드</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="메뉴 열기">
+            <span></span><span></span>
+        </button>
+    </div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
+        <a href="index.html">계산기</a>
+        <a href="benefits.html">혜택 찾기</a>
+        <a href="guides.html">가이드</a>
+    </nav>
+</header>
+
+<main id="main">
+    <div class="wrap">
+        <div class="calc-layout">
+
+            <form class="panel" id="calcForm" novalidate>
+                <div class="panel-head">
+                    <h2>4대보험 계산기</h2>
+                    <p>근로자와 사업주 부담금을 나눠서 보여줍니다</p>
+                </div>
+                <div class="panel-body">
+
+                    <div class="field">
+                        <label for="monthlyWage">월 급여 (과세 대상, 세전)</label>
+                        <div class="input-wrap">
+                            <input type="text" id="monthlyWage" name="monthlyWage" data-money inputmode="numeric"
+                                   value="3,000,000" autocomplete="off">
+                            <span class="suffix">원</span>
+                        </div>
+                        <div class="chips">
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="2100000">최저임금</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="3000000">300만</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="5000000">500만</button>
+                            <button type="button" class="chip" data-target="monthlyWage" data-value="8000000">800만</button>
+                        </div>
+                        <p class="hint">식대 등 비과세 수당을 제외한 보수월액을 입력하세요.</p>
+                    </div>
+
+                    <div class="notice">
+                        <b>사업주가 확인할 점</b> — 근로자 1명을 채용하면 급여 외에 4대보험 사업주 부담금이 약 10~11% 추가로 발생합니다. 결과 표의 오른쪽 열에서 확인하세요.
+                    </div>
+
+                    <div class="btn-row">
+                        <button type="button" class="btn btn--ghost btn--sm" data-copy-link>결과 링크 복사</button>
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                <div class="panel" id="result" aria-live="polite"></div>
+
+                <a class="affiliate" href="https://www.4insure.or.kr" target="_blank" rel="noopener noreferrer">
+                    <span class="ico" aria-hidden="true">4</span>
+                    <span>
+                        <span class="t">내 4대보험 가입 이력 확인하기</span>
+                        <span class="d">4대사회보험 정보연계센터에서 가입 내역과 납부 내역을 조회할 수 있습니다</span>
+                    </span>
+                    <span class="go">바로가기</span>
+                </a>
+                <p class="affiliate-label">※ 제휴 링크 자리입니다. 제휴 계약 후 링크와 문구를 교체하세요.</p>
+
+                <div class="ad-slot">광고 영역 (승인 후 노출)</div>
+            </div>
+
+        </div>
+
+        <section class="section" style="border-top:1px solid var(--line)">
+            <h2 style="font-size:22px">4대보험 요율 한눈에 보기</h2>
+            <div class="article" style="padding-top:16px;margin:0">
+                <p>국민연금·건강보험·고용보험은 근로자와 사업주가 <strong>절반씩</strong> 부담하고, 산재보험은 <strong>사업주가 전액</strong> 부담합니다. 고용보험은 실업급여분만 절반씩 나누고, 고용안정·직업능력개발사업분은 사업주가 추가로 냅니다.</p>
+                <ul>
+                    <li><strong>국민연금</strong> — 전체 9%, 근로자 4.5% (기준소득월액 상한 637만원 / 하한 40만원)</li>
+                    <li><strong>건강보험</strong> — 전체 7.09%, 근로자 3.545%</li>
+                    <li><strong>장기요양보험</strong> — 건강보험료의 12.95%를 다시 절반씩</li>
+                    <li><strong>고용보험</strong> — 실업급여분 1.8%를 절반씩(각 0.9%), 사업주는 고용안정분 0.25% 추가</li>
+                    <li><strong>산재보험</strong> — 업종별 요율, 사업주 전액 부담</li>
+                </ul>
+                <div class="callout"><b>국민연금에는 상한선이 있습니다.</b> 기준소득월액 637만원을 넘는 급여를 받아도 국민연금 보험료는 더 이상 늘지 않습니다. 반대로 40만원 미만이어도 40만원을 기준으로 부과됩니다.</div>
+
+                <h2>자주 묻는 질문</h2>
+                <h3>아르바이트도 4대보험에 가입하나요?</h3>
+                <p>월 60시간(주 15시간) 이상 근무하면 4대보험 의무가입 대상입니다. 그 미만이라도 산재보험은 근로시간과 무관하게 적용됩니다.</p>
+                <h3>건강보험료 정산은 왜 하나요?</h3>
+                <p>매달 낸 보험료는 전년도 보수를 기준으로 한 임시 금액이라, 다음 해 4월에 실제 보수와 비교해 차액을 정산합니다. 급여가 오른 해에는 추가 납부가 발생할 수 있습니다.</p>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-about">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/><path d="M12 12V3.2A8.8 8.8 0 0 1 20.2 9z" fill="currentColor"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg>
+                </span>
+                <span class="brand-name">머니레이더</span>
+            </a>
+            <p>모든 계산은 브라우저 안에서 처리되며 입력값은 서버로 전송되지 않습니다.</p>
+        </div>
+        <div>
+            <h4>계산기</h4>
+            <a href="salary.html">연봉 실수령액</a>
+            <a href="severance.html">퇴직금</a>
+            <a href="unemployment.html">실업급여</a>
+            <a href="insurance.html">4대보험</a>
+            <a href="parental-leave.html">육아휴직급여</a>
+        </div>
+        <div>
+            <h4>사이트</h4>
+            <a href="benefits.html">혜택 찾기</a>
+            <a href="guides.html">가이드</a>
+            <a href="privacy.html">개인정보처리방침</a>
+        </div>
+    </div>
+    <div class="wrap footer-bottom">
+        <span>© <span id="year">2026</span> 머니레이더</span>
+        <span>계산 결과는 참고용 추정치이며 법적 효력이 없습니다</span>
+    </div>
+</footer>
+
+<script src="assets/js/calc-core.js"></script>
+<script src="assets/js/calc-page.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
