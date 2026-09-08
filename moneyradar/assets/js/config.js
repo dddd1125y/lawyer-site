@@ -19,5 +19,14 @@ window.MR_CONFIG = {
     /* 결제 기능 준비 여부 */
     get isPaymentReady() {
         return Boolean(this.tossClientKey && this.apiBase);
+    },
+
+    /* 카카오 애드핏 — 승인 후 발급받은 광고 단위 코드(DAN-로 시작)를 넣으세요. (KAKAO_ADFIT_SETUP.md 참고)
+       비어 있으면 자리 표시자만 보이고 아무 스크립트도 불러오지 않습니다. */
+    ads: {
+        kakaoAdUnit: '',
+        get isReady() {
+            return Boolean(this.kakaoAdUnit);
+        }
     }
 };
