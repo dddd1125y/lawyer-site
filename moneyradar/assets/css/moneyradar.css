@@ -19,6 +19,11 @@
     --stamp: #b43a2c;
     --stamp-tint: #fbecea;
     --gold: #9a6b1f;
+    --gold-tint: #f7f0e0;
+    /* 금융 신뢰 파란색 — 수치·보안 신호 전용 */
+    --trust: #0b4fc4;
+    --trust-strong: #093a92;
+    --trust-tint: #eaf1ff;
 
     --wrap: 1120px;
     --gutter: clamp(1.15rem, 4vw, 2.25rem);
@@ -44,6 +49,10 @@
         --stamp: #e38071;
         --stamp-tint: #2e1e1b;
         --gold: #d8ad63;
+        --gold-tint: #2b2415;
+        --trust: #7aa8ff;
+        --trust-strong: #a6c4ff;
+        --trust-tint: #15213c;
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
         --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
@@ -124,6 +133,8 @@ button { background: none; border: 0; cursor: pointer; }
 }
 .nav-desktop a:hover { background: var(--surface-2); color: var(--ink); }
 .nav-desktop a[aria-current="page"] { color: var(--teal); background: var(--teal-tint); }
+
+.header-actions { display: flex; align-items: center; gap: 10px; flex: none; }
 
 .menu-toggle { display: none; width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--line); }
 .menu-toggle span { display: block; width: 17px; height: 1.5px; background: var(--ink); margin: 4px auto; transition: transform 0.2s; }
@@ -397,3 +408,204 @@ td.num, th.num { text-align: right; font-family: 'IBM Plex Mono', monospace; fon
     font-size: 13.5px; opacity: 0; pointer-events: none; transition: opacity 0.22s, transform 0.22s; z-index: 60;
 }
 .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* =========================================================
+   신뢰 강화 · 초보자 지원 컴포넌트
+   ========================================================= */
+
+/* ---------- 상단 신뢰 바 ---------- */
+.trust-bar {
+    background: var(--trust-tint);
+    border-bottom: 1px solid var(--line);
+}
+.trust-bar-inner {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px 22px; flex-wrap: wrap; min-height: 32px; padding: 5px 0;
+}
+.trust-item {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: var(--trust-strong); line-height: 1.4;
+}
+.trust-item svg { width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; }
+.trust-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--trust); flex: none; }
+@media (max-width: 560px) {
+    .trust-bar-inner { gap: 4px 14px; }
+    .trust-item { font-size: 11px; }
+    .trust-item.is-optional { display: none; }
+}
+
+/* ---------- Pro 업그레이드 버튼 ---------- */
+.btn-pro {
+    display: inline-flex; align-items: center; gap: 7px; flex: none;
+    padding: 8px 14px; border-radius: 9px; font-size: 13.5px; font-weight: 600;
+    color: #fff; background: linear-gradient(135deg, #8a5f18 0%, #b98a35 100%);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.16s var(--ease), box-shadow 0.18s;
+}
+.btn-pro:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(138, 95, 24, 0.32); }
+.btn-pro:active { transform: translateY(0); }
+.btn-pro .tag {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+    background: rgba(255, 255, 255, 0.24); padding: 2px 6px; border-radius: 4px;
+}
+@media (max-width: 400px) { .btn-pro .txt { display: none; } }
+
+/* ---------- 용어 툴팁 ---------- */
+.term {
+    display: inline; padding: 0; font: inherit; color: var(--trust);
+    border-bottom: 1.5px dotted currentColor; cursor: help; font-weight: 600;
+}
+.term:hover { color: var(--trust-strong); }
+.term::after { content: '?'; font-size: 0.7em; vertical-align: super; margin-left: 1px; opacity: 0.75; }
+.term-pop {
+    position: fixed; z-index: 80; max-width: min(300px, calc(100vw - 24px));
+    background: var(--surface); color: var(--ink-2);
+    border: 1px solid var(--line-2); border-radius: 12px; box-shadow: var(--shadow-md);
+    padding: 13px 15px; font-size: 13px; line-height: 1.65;
+    opacity: 0; transform: translateY(4px); pointer-events: none;
+    transition: opacity 0.16s, transform 0.16s;
+}
+.term-pop.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.term-pop .t { display: block; font-weight: 700; color: var(--trust); margin-bottom: 5px; font-size: 13.5px; }
+.term-pop .ex { display: block; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+
+/* ---------- 쉬운 말 요약 ---------- */
+.plain {
+    margin: 0; padding: 15px 22px; border-top: 1px solid var(--line);
+    background: var(--trust-tint); font-size: 13.5px; line-height: 1.75; color: var(--ink-2);
+}
+.plain .plain-t {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; color: var(--trust-strong);
+    letter-spacing: 0.02em; margin-bottom: 6px;
+}
+.plain .plain-t svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.plain b { color: var(--trust-strong); font-weight: 700; }
+.plain ul { margin-top: 7px; display: grid; gap: 4px; }
+.plain li { position: relative; padding-left: 13px; }
+.plain li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 4px; height: 4px; border-radius: 50%; background: var(--trust); }
+
+/* ---------- 계산 과정 펼쳐보기 ---------- */
+.steps { border-top: 1px solid var(--line); }
+.steps > summary {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    padding: 12px 22px; font-size: 13px; font-weight: 600; color: var(--trust);
+    list-style: none;
+}
+.steps > summary::-webkit-details-marker { display: none; }
+.steps > summary .arw { transition: transform 0.2s var(--ease); font-size: 10px; }
+.steps[open] > summary .arw { transform: rotate(90deg); }
+.steps > summary:hover { background: var(--surface-2); }
+.steps-body { padding: 4px 22px 18px; }
+.step {
+    display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 11px;
+    padding: 9px 0; border-bottom: 1px dashed var(--line);
+}
+.step:last-child { border-bottom: 0; }
+.step .n {
+    width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--trust-tint); color: var(--trust-strong);
+    font-size: 11px; font-weight: 700; font-family: 'IBM Plex Mono', monospace;
+}
+.step .d { font-size: 13px; color: var(--ink-2); line-height: 1.6; min-width: 0; }
+.step .d .eq {
+    display: block; margin-top: 3px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink-3); word-break: break-word;
+}
+.step .d .eq b { color: var(--ink); font-weight: 600; }
+
+/* ---------- 프리미엄 잠금 미리보기 ---------- */
+.pro-lock {
+    display: flex; align-items: center; gap: 13px;
+    margin-top: 18px; padding: 15px 18px; border-radius: 12px;
+    border: 1px solid var(--gold); background: var(--gold-tint);
+}
+.pro-lock .ico { width: 34px; height: 34px; border-radius: 9px; flex: none; display: grid; place-items: center; background: var(--gold); color: #fff; }
+.pro-lock .ico svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pro-lock .t { font-weight: 600; font-size: 14px; }
+.pro-lock .d { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+.pro-lock .go { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--gold); white-space: nowrap; }
+@media (max-width: 520px) {
+    .pro-lock { flex-wrap: wrap; }
+    .pro-lock .go { margin-left: 47px; }
+}
+
+/* ---------- 요금제 카드 ---------- */
+.plan-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px; max-width: 780px; margin: 0 auto; align-items: start;
+}
+@media (max-width: 720px) { .plan-grid { grid-template-columns: minmax(0, 1fr); } }
+.plan {
+    position: relative; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 26px 24px; box-shadow: var(--shadow-sm);
+}
+.plan.is-pro { border: 2px solid var(--gold); box-shadow: var(--shadow-md); }
+.plan .flag {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #fff; font-size: 11.5px; font-weight: 700;
+    padding: 4px 14px; border-radius: 999px; white-space: nowrap;
+}
+.plan .name { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; }
+.plan .for { font-size: 12.5px; color: var(--ink-3); margin-top: 4px; }
+.plan .price {
+    display: flex; align-items: baseline; gap: 5px; margin: 18px 0 4px;
+    font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums;
+}
+.plan .price .num { font-size: 34px; font-weight: 600; letter-spacing: -0.02em; }
+.plan .price .per { font-size: 14px; color: var(--ink-3); font-family: 'Noto Sans KR', sans-serif; }
+.plan .price-sub { font-size: 12.5px; color: var(--ink-3); min-height: 19px; }
+.plan .feat { margin: 20px 0; display: grid; gap: 9px; }
+.plan .feat li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 9px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+.plan .feat svg { width: 15px; height: 15px; margin-top: 4px; fill: none; stroke-width: 2.4; }
+.plan .feat .yes svg { stroke: var(--teal); }
+.plan .feat .pro svg { stroke: var(--gold); }
+.plan .feat .no { color: var(--ink-3); }
+.plan .feat .no svg { stroke: var(--line-2); }
+.plan .btn, .plan .btn-pro { width: 100%; }
+.plan-note { max-width: 780px; margin: 22px auto 0; font-size: 12.5px; color: var(--ink-3); line-height: 1.75; text-align: center; }
+
+/* ---------- 요금제 비교표 ---------- */
+.cmp th:first-child, .cmp td:first-child { text-align: left; }
+.cmp th.is-pro { background: var(--gold-tint); color: var(--gold); }
+.cmp td { text-align: center; }
+.cmp td.mark-y { color: var(--teal); font-weight: 700; }
+.cmp td.mark-n { color: var(--ink-3); }
+.cmp td.mark-p { color: var(--gold); font-weight: 700; }
+
+/* ---------- 결제 · 이용권 ---------- */
+.checkout-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 26px; align-items: start; padding: 32px 0 20px; }
+@media (max-width: 900px) { .checkout-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+.pick-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+@media (max-width: 480px) { .pick-grid { grid-template-columns: minmax(0, 1fr); } }
+.pick {
+    position: relative; text-align: left; width: 100%;
+    border: 1.5px solid var(--line-2); border-radius: 12px; padding: 15px 16px;
+    background: var(--surface); transition: border-color 0.16s, background 0.16s;
+}
+.pick:hover { border-color: var(--gold); }
+.pick.is-picked { border-color: var(--gold); background: var(--gold-tint); }
+.pick .pn { font-size: 14px; font-weight: 600; }
+.pick .pp { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; font-size: 21px; font-weight: 600; margin-top: 5px; }
+.pick .ps { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+.pick .save { display: inline-block; margin-top: 7px; font-size: 11px; font-weight: 700; color: #fff; background: var(--gold); padding: 2px 8px; border-radius: 999px; }
+
+/* .callout 은 원래 .article 안에서만 스타일이 걸려 있어, 본문 밖에서는 맨 텍스트로 보였다.
+   결제 안내처럼 본문 밖에서도 쓰이므로 독립 컴포넌트로 승격한다. */
+.callout {
+    margin: 18px 0; padding: 15px 17px; border-left: 3px solid var(--trust);
+    background: var(--trust-tint); border-radius: 0 10px 10px 0;
+    font-size: 14px; line-height: 1.7; color: var(--ink-2);
+}
+.callout b { color: var(--trust-strong); }
+.article .callout { border-left-color: var(--teal); background: var(--teal-tint); }
+.article .callout b { color: var(--teal-dark); }
+
+#payment-method, #payment-agreement { margin-top: 16px; }
+.pay-cta { width: 100%; margin-top: 18px; padding: 14px 20px; font-size: 15px; }
+.pay-safe { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--ink-3); }
+.pay-safe svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+.license-form { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 12px; }
+.license-form input { flex: 1 1 220px; font-family: 'IBM Plex Mono', monospace; text-align: left; }
