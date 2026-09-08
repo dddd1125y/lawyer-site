@@ -3,19 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>놓치기 쉬운 정부지원금 모음 | 혜택 찾기 — 머니레이더</title>
-<meta name="description" content="근로장려금, 청년내일저축계좌, 청년월세지원, 부모급여, 숨은 보험금 찾기까지. 신청 조건과 금액, 신청처를 한 곳에 정리했습니다.">
-<meta name="keywords" content="정부지원금, 청년 지원금, 근로장려금, 숨은 보험금 찾기, 정부혜택 모음">
-<meta property="og:type" content="website">
-<meta property="og:title" content="놓치기 쉬운 정부지원금 모음 — 머니레이더">
-<meta property="og:description" content="조건·금액·신청처를 한 곳에 정리한 지원금 아카이브">
+<title>결제가 완료되지 않았습니다 — 머니레이더</title>
+<meta name="description" content="결제가 완료되지 않았습니다.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/moneyradar.css">
 </head>
-<body>
+<body data-result="fail">
 <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 
 <div class="trust-bar">
@@ -41,7 +38,7 @@
         </a>
         <nav class="nav-desktop" aria-label="주요 메뉴">
             <a href="index.html">계산기</a>
-            <a href="benefits.html" aria-current="page">혜택 찾기</a>
+            <a href="benefits.html">혜택 찾기</a>
             <a href="guides.html">가이드</a>
             <a href="pricing.html">요금제</a>
         </nav>
@@ -63,50 +60,11 @@
 </header>
 
 <main id="main">
-    <section class="hero" style="padding:44px 0 32px">
-        <div class="wrap">
-            <span class="hero-badge"><span class="dot" aria-hidden="true"></span>총 <span id="benefitCount">14</span>개 혜택</span>
-            <h1 style="font-size:clamp(25px,4.4vw,36px)">몰라서 못 받는 돈,<br>여기서 확인하세요</h1>
-            <p class="lead">신청만 하면 되는데 몰라서 놓치는 지원금을 조건·금액·신청처와 함께 정리했습니다. 조회만으로 끝나는 항목도 있습니다.</p>
+    <div class="wrap">
+        <div style="max-width:640px;margin:0 auto;padding:36px 0 20px">
+            <div class="panel" id="payResult" aria-live="polite"></div>
         </div>
-    </section>
-
-    <section class="section" style="padding-top:32px">
-        <div class="wrap">
-            <div class="search-box">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-                <label class="sr-only" for="benefitSearch">혜택 검색</label>
-                <input type="text" id="benefitSearch" placeholder="예: 청년, 월세, 환급, 육아" autocomplete="off">
-            </div>
-
-            <div class="filter-bar">
-                <div>
-                    <label class="sr-only" for="benefitCategory">분야</label>
-                    <select id="benefitCategory">
-                        <option value="">전체 분야</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="sr-only" for="benefitAge">연령대</label>
-                    <select id="benefitAge">
-                        <option value="">전체 연령</option>
-                        <option value="20대">20대</option>
-                        <option value="30대">30대</option>
-                        <option value="40대">40대</option>
-                        <option value="50대+">50대 이상</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="benefit-list" id="benefitList"></div>
-
-            <div class="notice" style="margin-top:24px">
-                <b>확인해 주세요</b> — 지원금 금액과 자격 요건은 매년 바뀌고 지자체별로 다를 수 있습니다. 실제 신청 전에는 반드시 각 기관 공식 사이트에서 최신 공고를 확인하세요. 이 페이지는 <span class="mono">2025-07-01</span> 기준으로 정리되었습니다.
-            </div>
-
-            <div class="ad-slot">광고 영역 (승인 후 노출)</div>
-        </div>
-    </section>
+    </div>
 </main>
 
 <footer class="site-footer">
@@ -142,10 +100,9 @@
     </div>
 </footer>
 
-<script src="assets/js/benefits-data.js"></script>
-<script src="assets/js/benefits.js"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/pro.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/checkout-result.js"></script>
 </body>
 </html>

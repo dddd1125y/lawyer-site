@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
 
-# 배포 도메인이 정해지면 아래 주소를 실제 도메인으로 교체하세요.
-Sitemap: https://example.com/moneyradar/sitemap.xml
+# 결제·이용권 페이지는 색인 대상이 아닙니다.
+Disallow: /lawyer-site/moneyradar/checkout.html
+Disallow: /lawyer-site/moneyradar/checkout-success.html
+Disallow: /lawyer-site/moneyradar/checkout-fail.html
+Disallow: /lawyer-site/moneyradar/account.html
+
+Sitemap: https://dddd1125y.github.io/lawyer-site/moneyradar/sitemap.xml
