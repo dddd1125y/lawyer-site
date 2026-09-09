@@ -10,6 +10,20 @@
 <meta property="og:title" content="연봉 실수령액 계산기 — 머니레이더">
 <meta property="og:description" content="공제 항목별 금액과 계산 근거까지 보여주는 실수령액 계산기">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://dddd1125y.github.io/lawyer-site/moneyradar/salary.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "연봉 실수령액 계산기",
+  "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/salary.html",
+  "description": "세전 연봉을 입력하면 국민연금·건강보험·고용보험과 소득세를 뺀 월 실수령액을 계산합니다.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "웹 브라우저",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "isPartOf": { "@type": "WebSite", "name": "머니레이더", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
@@ -43,12 +57,8 @@
             <a href="index.html" aria-current="page">계산기</a>
             <a href="benefits.html">혜택 찾기</a>
             <a href="guides.html">가이드</a>
-            <a href="pricing.html">요금제</a>
         </nav>
         <div class="header-actions">
-            <a class="btn-pro" href="pricing.html">
-                <span class="tag">PRO</span><span class="txt">업그레이드</span>
-            </a>
             <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="메뉴 열기">
                 <span></span><span></span>
             </button>
@@ -58,7 +68,6 @@
         <a href="index.html">계산기</a>
         <a href="benefits.html">혜택 찾기</a>
         <a href="guides.html">가이드</a>
-        <a href="pricing.html">요금제</a>
     </nav>
 </header>
 
@@ -122,6 +131,7 @@
 
                     <div class="btn-row">
                         <button type="button" class="btn btn--ghost btn--sm" data-copy-link>결과 링크 복사</button>
+                        <button type="button" class="btn btn--ghost btn--sm" data-report>결과 리포트 저장</button>
                     </div>
                 </div>
             </form>
@@ -140,7 +150,7 @@
                 <p class="affiliate-label">※ 제휴 링크 자리입니다. 제휴 계약 후 링크와 문구를 교체하세요.</p>
 
                 <!-- 광고 슬롯: 결과 아래는 클릭률이 가장 높은 위치입니다 -->
-                <div class="ad-slot">광고 영역 (승인 후 노출)</div>
+                <div class="ad-slot" data-ad-slot>광고 영역 (심사 승인 후 노출)</div>
             </div>
 
         </div>
@@ -187,7 +197,6 @@
             <h4>사이트</h4>
             <a href="benefits.html">혜택 찾기</a>
             <a href="guides.html">가이드</a>
-            <a href="pricing.html">요금제</a>
             <a href="privacy.html">개인정보처리방침</a>
         </div>
     </div>
@@ -200,7 +209,8 @@
 <script src="assets/js/calc-core.js"></script>
 <script src="assets/js/calc-page.js"></script>
 <script src="assets/js/config.js"></script>
-<script src="assets/js/pro.js"></script>
+<script src="assets/js/ads.js"></script>
+<script src="assets/js/report.js"></script>
 <script src="assets/js/site.js"></script>
 </body>
 </html>

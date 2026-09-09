@@ -1,10 +1,4 @@
 User-agent: *
 Allow: /
 
-# 결제·이용권 페이지는 색인 대상이 아닙니다.
-Disallow: /lawyer-site/moneyradar/checkout.html
-Disallow: /lawyer-site/moneyradar/checkout-success.html
-Disallow: /lawyer-site/moneyradar/checkout-fail.html
-Disallow: /lawyer-site/moneyradar/account.html
-
 Sitemap: https://dddd1125y.github.io/lawyer-site/moneyradar/sitemap.xml
