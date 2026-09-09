@@ -409,6 +409,115 @@
                 note('2025년부터 육아휴직급여 상한액이 인상되고 사후지급금(25% 유보)이 폐지되어 ' +
                     '휴직 기간 중 전액을 받습니다. 부모가 함께 사용하는 경우 <b>6+6 부모육아휴직제</b>로 ' +
                     '첫 6개월간 급여가 더 높아질 수 있습니다(위 계산에는 미반영).<br>' + basis);
+        },
+
+        yearend: function () {
+            var gross = money('grossAnnual');
+            var r = MR.calcYearEndTax({
+                grossAnnual: gross,
+                dependents: MR.toNumber(raw('dependents')) || 1,
+                children: MR.toNumber(raw('children')),
+                creditCard: money('creditCard'),
+                checkCard: money('checkCard'),
+                pensionAccount: money('pensionAccount'),
+                insurancePremium: money('insurancePremium'),
+                medical: money('medical'),
+                education: money('education'),
+                donation: money('donation'),
+                rent: money('rent'),
+                prepaid: raw('prepaid')
+            });
+
+            if (gross <= 0) return emptyState('총급여를 입력하면 예상 환급액이 바로 계산됩니다.');
+
+            var c = r.taxCredits;
+            var isRefund = r.refund > 0;
+            var isDue = r.due > 0;
+
+            var heroBlock = isRefund
+                ? hero('예상 환급액', fmt(r.refund) + '<span style="font-size:0.45em"> 원</span>',
+                    '결정세액 ' + fmt(r.finalTax) + '원 · 기납부세액 ' + fmt(r.prepaid) + '원')
+                : isDue
+                    ? hero('예상 추가납부액', fmt(r.due) + '<span style="font-size:0.45em"> 원</span>',
+                        '결정세액 ' + fmt(r.finalTax) + '원 · 기납부세액 ' + fmt(r.prepaid) + '원', true)
+                    : hero('정산할 금액이 없습니다', '0<span style="font-size:0.45em"> 원</span>',
+                        '낸 세금과 낼 세금이 같습니다');
+
+            /* 공제 항목을 실제 절세액 순으로 보여줘야 무엇을 챙길지 알 수 있다 */
+            var creditRows = [
+                { name: '근로소득세액공제', v: c.earned, hint: '자동 적용' },
+                { name: '연금계좌 (연금저축·IRP)', v: c.pension, hint: '납입액의 12~15%' },
+                { name: '의료비', v: c.medical, hint: '총급여 3% 초과분의 15%' },
+                { name: '교육비', v: c.education, hint: '15%' },
+                { name: '보장성 보험료', v: c.insurance, hint: '한도 100만원의 12%' },
+                { name: '자녀세액공제', v: c.child, hint: '8~20세 자녀' },
+                { name: '기부금', v: c.donation, hint: '15~30%' },
+                { name: '월세', v: c.rent, hint: '총급여 8천만원 이하' }
+            ].filter(function (x) { return x.v > 0; });
+
+            /* 기준을 별도 열로 두면 좁은 화면에서 정작 중요한 금액이 밀려나므로 항목 아래에 붙인다 */
+            var creditTable = creditRows.length
+                ? '<div class="table-wrap"><table><thead><tr><th>세액공제 항목</th><th class="num">금액</th></tr></thead><tbody>' +
+                  creditRows.map(function (x) {
+                      return '<tr><td>' + x.name +
+                          '<span style="display:block;color:var(--ink-3);font-size:11.5px;margin-top:2px">' + x.hint + '</span>' +
+                          '</td><td class="num"><b>' + fmt(Math.round(x.v)) + '</b></td></tr>';
+                  }).join('') +
+                  '<tr><td><b>세액공제 합계</b></td><td class="num"><b>' + fmt(r.taxCreditTotal) + '</b></td></tr>' +
+                  '</tbody></table></div>'
+                : '<div class="notice">아직 입력한 공제 항목이 없습니다. 연금저축·의료비·월세 등을 넣어보세요.</div>';
+
+            return heroBlock +
+                plain([
+                    isRefund
+                        ? '내년 2월 월급에 <b>약 ' + won(r.refund) + '</b>이 더 들어옵니다.'
+                        : isDue
+                            ? '내년 2월 월급에서 <b>약 ' + won(r.due) + '</b>이 더 빠집니다. 공제 서류를 더 챙기면 줄일 수 있습니다.'
+                            : '더 낼 것도, 돌려받을 것도 없습니다.',
+                    '1년 동안 미리 낸 세금이 <b>' + won(r.prepaid) + '</b>인데, 공제를 모두 반영한 진짜 세금은 <b>' + won(r.finalTax) + '</b>입니다.' +
+                        (r.prepaidEstimated ? ' (미리 낸 세금은 추정치입니다)' : ''),
+                    r.creditWasted
+                        ? '공제받을 수 있는 금액이 낼 세금보다 많습니다. <b>이미 세금이 0원</b>이라 서류를 더 내도 환급은 늘지 않습니다.'
+                        : '공제 서류를 더 챙길수록 환급이 늘어납니다. 가장 확실한 건 <b>연금저축·IRP</b>로, 넣는 즉시 12~15%가 세금에서 깎입니다.'
+                ]) +
+                '<div class="rows">' +
+                row('총급여', fmt(r.grossAnnual) + '원') +
+                row('근로소득공제', '-' + fmt(Math.round(r.earnedIncomeDeduction)) + '원', 'is-sub') +
+                row('근로소득금액', fmt(Math.round(r.incomeAmount)) + '원') +
+                row('인적공제', '-' + fmt(r.incomeDeductions.personal) + '원', 'is-sub') +
+                row('국민연금 보험료', '-' + fmt(Math.round(r.incomeDeductions.pension)) + '원', 'is-sub') +
+                row('건강·고용보험료', '-' + fmt(Math.round(r.incomeDeductions.insurance)) + '원', 'is-sub') +
+                row('신용카드 등 사용액', '-' + fmt(Math.round(r.incomeDeductions.card)) + '원', 'is-sub') +
+                row('과세표준', fmt(r.taxBase) + '원', 'is-total') +
+                row('산출세액', fmt(r.computedTax) + '원') +
+                row('세액공제 합계', '-' + fmt(r.usedCredit) + '원', 'is-sub') +
+                row('결정세액', fmt(r.finalTax) + '원', 'is-total') +
+                row('기납부세액' + (r.prepaidEstimated ? ' (추정)' : ''), fmt(r.prepaid) + '원') +
+                row(isDue ? '추가납부액' : '환급액', fmt(isDue ? r.due : r.refund) + '원', 'is-total') +
+                '</div>' +
+                '<div style="padding:18px 22px">' + creditTable + '</div>' +
+                steps([
+                    { t: '총급여에서 ' + T('근로소득공제') + '를 빼 근로소득금액을 구합니다. 이건 서류 없이 자동으로 빠집니다.',
+                      eq: won(r.grossAnnual) + ' − ' + won(r.earnedIncomeDeduction) + ' = <b>' + won(r.incomeAmount) + '</b>' },
+                    { t: '여기서 인적공제·보험료·신용카드 사용액 같은 ' + T('소득공제') + '를 뺍니다.',
+                      eq: '소득공제 합계 ' + won(r.incomeDeductionTotal) + ' → ' + T('과세표준') + ' <b>' + won(r.taxBase) + '</b>' },
+                    { t: '과세표준에 기본세율(6~45%)을 곱하면 산출세액이 나옵니다.',
+                      eq: '과세표준 ' + won(r.taxBase) + ' → 산출세액 <b>' + won(r.computedTax) + '</b>' },
+                    { t: '연금저축·의료비·월세 같은 ' + T('세액공제') + '는 세금에서 직접 깎아줍니다. 소득공제보다 효과가 큽니다.',
+                      eq: won(r.computedTax) + ' − ' + won(r.usedCredit) + ' = 결정세액 <b>' + won(r.finalTax) + '</b>' +
+                          (r.creditWasted ? ' <span style="color:var(--stamp)">(공제 한도 초과)</span>' : '') },
+                    { t: '1년 동안 미리 낸 세금과 비교해 더 냈으면 돌려받고, 덜 냈으면 더 냅니다.',
+                      eq: '기납부 ' + won(r.prepaid) + ' − 결정세액 ' + won(r.finalTax) + ' = <b>' +
+                          (isDue ? '추가납부 ' + won(r.due) : '환급 ' + won(r.refund)) + '</b>' }
+                ]) +
+                note('<b>기납부세액은 어떻게 잡았나요?</b><br>' +
+                    (r.prepaidEstimated
+                        ? '비워두셔서, 공제 서류를 하나도 내지 않았을 때 내야 할 세금(' + fmt(r.prepaid) + '원)으로 추정했습니다. ' +
+                          '원천징수영수증의 <b>기납부세액</b>을 직접 넣으면 훨씬 정확해집니다.'
+                        : '입력하신 ' + fmt(r.prepaid) + '원을 사용했습니다.') +
+                    '<br><br>연금계좌는 연금저축과 IRP 합산 900만원 한도로 계산했습니다(연금저축만 있으면 600만원 한도). ' +
+                    '주택청약·장기주택저당차입금·중소기업 취업자 감면 등 일부 항목은 반영되지 않았으므로, ' +
+                    '실제 정산액은 국세청 연말정산 간소화 자료 기준과 차이가 날 수 있습니다.<br>' + basis);
         }
     };
 
@@ -416,10 +525,27 @@
         return '<div class="empty-state">' + message + '</div>';
     }
 
+    var lastHTML = '';
+
     function render() {
         var fn = renderers[kind];
         if (!fn) return;
-        out.innerHTML = fn();
+        var html = fn();
+
+        /* 결과가 그대로면 DOM을 다시 만들지 않는다. 입력칸에서 포커스가 빠질 때도
+           change 가 한 번 더 들어오는데, 그때마다 다시 만들면 펼쳐둔 계산 과정이 접히고
+           누르려던 버튼이 손가락 밑에서 사라져 첫 탭이 먹지 않는다. */
+        if (html !== lastHTML) {
+            var wasOpen = !!out.querySelector('details.steps[open]');
+            if (window.MR_CLOSE_TERM) window.MR_CLOSE_TERM();
+            out.innerHTML = html;
+            /* 값을 조금씩 고쳐가며 근거를 비교할 수 있도록 펼침 상태는 지킨다 */
+            if (wasOpen) {
+                var steps = out.querySelector('details.steps');
+                if (steps) steps.open = true;
+            }
+            lastHTML = html;
+        }
         writeParams();
     }
 

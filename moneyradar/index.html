@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>머니레이더 | 실수령액·퇴직금·실업급여 계산기와 숨은 지원금 찾기</title>
-<meta name="description" content="연봉 실수령액, 퇴직금, 4대보험, 실업급여, 육아휴직급여를 한 곳에서 계산하고 놓치기 쉬운 정부지원금까지 찾아보세요. 계산 근거와 기준 요율을 함께 보여드립니다.">
-<meta name="keywords" content="연봉 실수령액 계산기, 퇴직금 계산기, 실업급여 계산기, 4대보험 계산기, 육아휴직급여, 정부지원금">
+<title>머니레이더 | 실수령액·퇴직금·연말정산 계산기와 숨은 지원금 찾기</title>
+<meta name="description" content="연봉 실수령액, 퇴직금, 4대보험, 실업급여, 육아휴직급여, 연말정산 환급금을 한 곳에서 계산하고 놓치기 쉬운 정부지원금까지 찾아보세요. 계산 근거와 기준 요율을 함께 보여드립니다.">
+<meta name="keywords" content="연봉 실수령액 계산기, 퇴직금 계산기, 실업급여 계산기, 4대보험 계산기, 연말정산 계산기, 육아휴직급여, 정부지원금">
 <meta property="og:type" content="website">
 <meta property="og:title" content="머니레이더 — 받을 수 있는 돈, 계산부터 하세요">
 <meta property="og:description" content="실수령액·퇴직금·실업급여를 근거와 함께 계산하고, 놓치기 쉬운 지원금을 찾아주는 무료 계산기 허브">
@@ -23,7 +23,7 @@
   "name": "머니레이더",
   "alternateName": "머니레이더 계산기",
   "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/",
-  "description": "연봉 실수령액, 퇴직금, 실업급여, 4대보험, 육아휴직급여를 계산하고 놓치기 쉬운 정부지원금을 찾아주는 무료 계산기 모음",
+  "description": "연봉 실수령액, 퇴직금, 실업급여, 4대보험, 육아휴직급여, 연말정산 환급금을 계산하고 놓치기 쉬운 정부지원금을 찾아주는 무료 계산기 모음",
   "inLanguage": "ko"
 }
 </script>
@@ -37,7 +37,8 @@
     { "@type": "ListItem", "position": 2, "name": "퇴직금 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/severance.html" },
     { "@type": "ListItem", "position": 3, "name": "실업급여 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/unemployment.html" },
     { "@type": "ListItem", "position": 4, "name": "4대보험 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/insurance.html" },
-    { "@type": "ListItem", "position": 5, "name": "육아휴직급여 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/parental-leave.html" }
+    { "@type": "ListItem", "position": 5, "name": "육아휴직급여 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/parental-leave.html" },
+    { "@type": "ListItem", "position": 6, "name": "연말정산 환급금 계산기", "url": "https://dddd1125y.github.io/lawyer-site/moneyradar/yearend.html" }
   ]
 }
 </script>
@@ -92,7 +93,7 @@
             <h1>받을 수 있는 돈,<br><em>계산</em>부터 하고 시작하세요</h1>
             <p class="lead">연봉 실수령액부터 퇴직금·실업급여까지, 숫자만 보여주는 게 아니라 <strong>왜 그 금액인지</strong> 근거까지 함께 보여드립니다. 로그인도, 앱 설치도 필요 없습니다.</p>
             <div class="hero-stats">
-                <div class="hero-stat"><div class="v mono">5종</div><div class="k">계산기</div></div>
+                <div class="hero-stat"><div class="v mono">6종</div><div class="k">계산기</div></div>
                 <div class="hero-stat"><div class="v mono">14개</div><div class="k">정리된 지원금</div></div>
                 <div class="hero-stat"><div class="v mono">0원</div><div class="k">이용료</div></div>
             </div>
@@ -144,12 +145,12 @@
                     <span class="go">계산하기 →</span>
                 </a>
 
-                <div class="calc-card is-soon">
+                <a class="calc-card" href="yearend.html">
                     <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></span>
-                    <h3>연말정산 환급 <span class="tag-soon">준비중</span></h3>
-                    <p>공제 항목을 넣으면 예상 환급액을 미리 확인할 수 있습니다.</p>
-                    <span class="go">1월 오픈 예정</span>
-                </div>
+                    <h3>연말정산 환급금</h3>
+                    <p>공제 항목을 넣으면 돌려받을 금액과 절세 방법을 미리 확인합니다.</p>
+                    <span class="go">계산하기 →</span>
+                </a>
             </div>
         </div>
     </section>
@@ -237,6 +238,7 @@
             <a href="unemployment.html">실업급여</a>
             <a href="insurance.html">4대보험</a>
             <a href="parental-leave.html">육아휴직급여</a>
+            <a href="yearend.html">연말정산 환급금</a>
         </div>
         <div>
             <h4>사이트</h4>

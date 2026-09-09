@@ -113,9 +113,19 @@
         '사후지급금': {
             d: '예전에는 육아휴직급여의 25%를 복직 후 6개월이 지나야 줬는데, 이 유보금을 사후지급금이라 불렀습니다. 2025년부터 폐지되어 휴직 중에 전액을 받습니다.',
             ex: '이제는 휴직 기간에 100% 모두 받습니다.'
+        },
+        '소득공제': {
+            d: '세율을 곱하기 전에 소득 자체를 줄여주는 공제입니다. 소득이 줄어든 만큼만 세금이 줄기 때문에, 같은 100만원이라도 세액공제보다 효과가 작습니다.',
+            ex: '소득공제 100만원 → 세율 15% 구간이면 세금은 15만원만 줄어듭니다.'
+        },
+        '세액공제': {
+            d: '계산이 끝난 세금에서 직접 깎아주는 공제입니다. 공제액이 그대로 세금 감소액이 되므로 소득공제보다 훨씬 유리합니다.',
+            ex: '세액공제 100만원 → 세금이 그대로 100만원 줄어듭니다.'
         }
     };
     window.MR_GLOSSARY = GLOSSARY;
+    /* 결과를 다시 그리면 설명이 붙어 있던 버튼이 사라지므로, 그리는 쪽에서 닫아준다. */
+    window.MR_CLOSE_TERM = function () { closePop(); };
 
     var pop = null;
     var popOwner = null;
@@ -145,8 +155,15 @@
         pop.querySelector('.dd').textContent = item.d;
         if (item.ex) pop.querySelector('.ex').textContent = '예) ' + item.ex;
 
-        /* 화면 밖으로 나가지 않도록 위치를 보정한다 */
         pop.classList.add('is-open');
+        placePop(btn);
+
+        popOwner = btn;
+        btn.setAttribute('aria-expanded', 'true');
+    }
+
+    /* 화면 밖으로 나가지 않도록 위치를 보정한다 */
+    function placePop(btn) {
         var r = btn.getBoundingClientRect();
         var pw = pop.offsetWidth;
         var ph = pop.offsetHeight;
@@ -155,9 +172,6 @@
         if (top + ph > window.innerHeight - 12) top = Math.max(12, r.top - ph - 8);
         pop.style.left = left + 'px';
         pop.style.top = top + 'px';
-
-        popOwner = btn;
-        btn.setAttribute('aria-expanded', 'true');
     }
 
     document.addEventListener('click', function (e) {
@@ -175,7 +189,16 @@
         if (e.key === 'Escape') closePop();
     });
 
-    window.addEventListener('scroll', closePop, { passive: true });
+    /* 버튼을 화면 안으로 들여오려는 브라우저의 자동 스크롤에 설명이 바로 닫히면
+       모바일에서 눌러도 아무 일이 없는 것처럼 보인다. 그래서 스크롤에는 따라 움직이고,
+       기준이 된 버튼이 화면 밖으로 나갔을 때만 닫는다. */
+    window.addEventListener('scroll', function () {
+        if (!popOwner) return;
+        var r = popOwner.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) closePop();
+        else placePop(popOwner);
+    }, { passive: true });
+
     window.addEventListener('resize', closePop);
 
     /* ---------- 링크 복사 ---------- */

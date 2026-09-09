@@ -76,7 +76,35 @@
 
         /* 인적공제 1인당 금액 / 지방소득세율 */
         personalDeduction: 1500000,
-        localTaxRate: 0.1
+        localTaxRate: 0.1,
+
+        /* 연말정산 — 소득공제·세액공제 기준 (2025년 귀속) */
+        yearEnd: {
+            /* 신용카드 등 사용액 소득공제: 총급여 25% 초과분부터 */
+            card: {
+                threshold: 0.25,
+                creditRate: 0.15,      /* 신용카드 */
+                checkRate: 0.30,       /* 체크카드·현금영수증 */
+                capBoundary: 70000000,
+                capLow: 3000000,       /* 총급여 7천만원 이하 */
+                capHigh: 2500000       /* 총급여 7천만원 초과 */
+            },
+            /* 연금계좌(연금저축+IRP) 세액공제 */
+            pensionAccount: {
+                limit: 9000000,
+                rateBoundary: 55000000,
+                highRate: 0.15,        /* 총급여 5,500만원 이하 */
+                lowRate: 0.12
+            },
+            insuranceCredit: { limit: 1000000, rate: 0.12 },
+            medical: { thresholdRate: 0.03, rate: 0.15, limit: 7000000 },
+            education: { rate: 0.15, limit: 9000000 },
+            donation: { rate: 0.15, highRate: 0.30, highFrom: 10000000 },
+            /* 월세 세액공제: 총급여 8천만원 이하만 대상 */
+            rent: { limit: 10000000, highTo: 55000000, highRate: 0.17, lowTo: 80000000, lowRate: 0.15 },
+            /* 자녀세액공제 (8세 이상 20세 이하) */
+            child: { first: 250000, second: 550000, extra: 400000 }
+        }
     };
 
     /* ---------- 공통 유틸 ---------- */
@@ -389,6 +417,153 @@
         return { months: months, monthlyWage: wage, schedule: schedule, total: total };
     }
 
+    /* ---------- 연말정산 ---------- */
+
+    /* 신용카드 등 사용액 소득공제.
+       총급여의 25%를 넘게 써야 그 초과분부터 공제되고, 최저사용금액은
+       공제율이 낮은 신용카드부터 채워지므로 체크카드 쪽이 유리하다. */
+    function cardDeduction(gross, credit, check) {
+        var cfg = RATES.yearEnd.card;
+        var minSpend = gross * cfg.threshold;
+        if (credit + check <= minSpend) return 0;
+
+        var amount = credit >= minSpend
+            ? (credit - minSpend) * cfg.creditRate + check * cfg.checkRate
+            : (check - (minSpend - credit)) * cfg.checkRate;
+
+        var cap = gross <= cfg.capBoundary ? cfg.capLow : cfg.capHigh;
+        return clamp(amount, 0, cap);
+    }
+
+    function childTaxCredit(count) {
+        var cfg = RATES.yearEnd.child;
+        if (count <= 0) return 0;
+        if (count === 1) return cfg.first;
+        if (count === 2) return cfg.second;
+        return cfg.second + (count - 2) * cfg.extra;
+    }
+
+    /**
+     * 연말정산 환급·추가납부액 추정.
+     * @param {Object} opts
+     * @param {number} opts.grossAnnual      총급여 (비과세 제외 연간)
+     * @param {number} opts.dependents       기본공제 대상자 수 (본인 포함)
+     * @param {number} opts.children         자녀세액공제 대상 자녀 수 (8~20세)
+     * @param {number} opts.creditCard       신용카드 사용액
+     * @param {number} opts.checkCard        체크카드·현금영수증 사용액
+     * @param {number} opts.pensionAccount   연금저축+IRP 납입액
+     * @param {number} opts.insurancePremium 보장성 보험료
+     * @param {number} opts.medical          의료비
+     * @param {number} opts.education        교육비
+     * @param {number} opts.donation         기부금
+     * @param {number} opts.rent             연간 월세 총액
+     * @param {number} [opts.prepaid]        기납부세액 (비우면 자동 추정)
+     */
+    function calcYearEndTax(opts) {
+        var o = opts || {};
+        var cfg = RATES.yearEnd;
+        var gross = Math.max(0, toNumber(o.grossAnnual));
+        var dependents = Math.max(1, toNumber(o.dependents) || 1);
+        var children = Math.max(0, toNumber(o.children));
+
+        /* --- 1. 근로소득금액 --- */
+        var eiDeduction = earnedIncomeDeduction(gross);
+        var incomeAmount = Math.max(0, gross - eiDeduction);
+
+        /* --- 2. 소득공제 --- */
+        var ins = calcInsurance(gross / 12);
+        var pensionPremium = ins.employee.pension * 12;
+        var insurancePaid = (ins.employee.health + ins.employee.longTermCare + ins.employee.employment) * 12;
+        var personal = RATES.personalDeduction * dependents;
+        var card = cardDeduction(gross, Math.max(0, toNumber(o.creditCard)), Math.max(0, toNumber(o.checkCard)));
+
+        var incomeDeductions = {
+            personal: personal,
+            pension: pensionPremium,
+            insurance: insurancePaid,
+            card: card
+        };
+        var incomeDeductionTotal = personal + pensionPremium + insurancePaid + card;
+        var taxBase = Math.max(0, incomeAmount - incomeDeductionTotal);
+
+        /* --- 3. 산출세액 --- */
+        var computedTax = progressiveTax(taxBase);
+
+        /* --- 4. 세액공제 --- */
+        var pensionPaid = Math.min(Math.max(0, toNumber(o.pensionAccount)), cfg.pensionAccount.limit);
+        var pensionRate = gross <= cfg.pensionAccount.rateBoundary
+            ? cfg.pensionAccount.highRate : cfg.pensionAccount.lowRate;
+
+        var medicalPaid = Math.max(0, toNumber(o.medical));
+        var medicalOver = Math.max(0, medicalPaid - gross * cfg.medical.thresholdRate);
+
+        var donationPaid = Math.max(0, toNumber(o.donation));
+        var donationCredit = donationPaid <= cfg.donation.highFrom
+            ? donationPaid * cfg.donation.rate
+            : cfg.donation.highFrom * cfg.donation.rate +
+              (donationPaid - cfg.donation.highFrom) * cfg.donation.highRate;
+
+        var rentPaid = Math.max(0, toNumber(o.rent));
+        var rentCredit = 0;
+        if (rentPaid > 0 && gross <= cfg.rent.lowTo) {
+            rentCredit = Math.min(rentPaid, cfg.rent.limit) *
+                (gross <= cfg.rent.highTo ? cfg.rent.highRate : cfg.rent.lowRate);
+        }
+
+        var taxCredits = {
+            earned: earnedIncomeTaxCredit(computedTax, gross),
+            child: childTaxCredit(children),
+            pension: pensionPaid * pensionRate,
+            insurance: Math.min(Math.max(0, toNumber(o.insurancePremium)), cfg.insuranceCredit.limit) * cfg.insuranceCredit.rate,
+            medical: Math.min(medicalOver, cfg.medical.limit) * cfg.medical.rate,
+            education: Math.min(Math.max(0, toNumber(o.education)), cfg.education.limit) * cfg.education.rate,
+            donation: donationCredit,
+            rent: rentCredit
+        };
+
+        var taxCreditTotal = 0;
+        Object.keys(taxCredits).forEach(function (k) { taxCreditTotal += taxCredits[k]; });
+
+        /* 세액공제는 산출세액을 넘을 수 없다 (납부할 세금보다 더 돌려주지는 않는다) */
+        var usedCredit = Math.min(taxCreditTotal, computedTax);
+        var finalTax = won(Math.max(0, computedTax - usedCredit));
+        var localTax = won(finalTax * RATES.localTaxRate);
+
+        /* --- 5. 기납부세액 --- */
+        /* 비우면, 공제 서류를 하나도 내지 않았을 때의 세금으로 추정한다.
+           매달 원천징수는 인적공제와 보험료만 반영해 떼가기 때문이다. */
+        var baselineBase = Math.max(0, incomeAmount - (personal + pensionPremium + insurancePaid));
+        var baselineTax = progressiveTax(baselineBase);
+        var estimatedPrepaid = won(Math.max(0, baselineTax - earnedIncomeTaxCredit(baselineTax, gross)));
+
+        var prepaidGiven = o.prepaid !== undefined && o.prepaid !== null && o.prepaid !== '' && toNumber(o.prepaid) > 0;
+        var prepaid = prepaidGiven ? won(toNumber(o.prepaid)) : estimatedPrepaid;
+
+        var balance = prepaid - finalTax;   /* 양수면 환급, 음수면 추가납부 */
+
+        return {
+            grossAnnual: gross,
+            earnedIncomeDeduction: eiDeduction,
+            incomeAmount: incomeAmount,
+            incomeDeductions: incomeDeductions,
+            incomeDeductionTotal: incomeDeductionTotal,
+            taxBase: taxBase,
+            computedTax: won(computedTax),
+            taxCredits: taxCredits,
+            taxCreditTotal: won(taxCreditTotal),
+            usedCredit: won(usedCredit),
+            creditWasted: taxCreditTotal > computedTax,
+            finalTax: finalTax,
+            localTax: localTax,
+            prepaid: prepaid,
+            prepaidEstimated: !prepaidGiven,
+            balance: won(balance),
+            refund: balance > 0 ? won(balance) : 0,
+            due: balance < 0 ? won(-balance) : 0,
+            effectiveRate: gross > 0 ? finalTax / gross : 0
+        };
+    }
+
     return {
         RATES: RATES,
         toNumber: toNumber,
@@ -400,6 +575,9 @@
         calcSeverance: calcSeverance,
         calcUnemployment: calcUnemployment,
         calcParentalLeave: calcParentalLeave,
+        calcYearEndTax: calcYearEndTax,
+        cardDeduction: cardDeduction,
+        childTaxCredit: childTaxCredit,
         unemploymentDays: unemploymentDays
     };
 });

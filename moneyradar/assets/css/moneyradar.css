@@ -216,6 +216,25 @@ button { background: none; border: 0; cursor: pointer; }
 .field > label, .field .field-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 7px; }
 .field .hint { font-size: 12.5px; color: var(--ink-3); margin-top: 6px; line-height: 1.55; }
 
+/* 입력 항목이 많은 폼(연말정산)에서 묶음을 구분한다 */
+.field-group {
+    margin: 26px 0 16px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+}
+.field-group:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.field-group .g-hint {
+    display: block;
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-3);
+}
+
 .input-wrap { position: relative; display: flex; align-items: center; }
 .input-wrap .suffix { position: absolute; right: 14px; font-size: 14px; color: var(--ink-3); pointer-events: none; }
 input[type="text"], input[type="date"], input[type="number"], select {
@@ -306,6 +325,18 @@ th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--li
 th { background: var(--teal-tint); color: var(--teal-dark); font-size: 12px; font-weight: 600; letter-spacing: 0.03em; }
 tr:last-child td { border-bottom: 0; }
 td.num, th.num { text-align: right; font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+
+/* 좁은 화면에서는 최소폭을 풀어 금액 열이 잘려나가지 않게 한다.
+   가로로 밀려버리면 정작 보러 온 숫자가 화면 밖에 있게 된다. */
+@media (max-width: 560px) {
+    table { min-width: 0; font-size: 13px; }
+    th, td { padding: 9px 9px; }
+    th { font-size: 11px; letter-spacing: 0; }
+}
+@media (max-width: 380px) {
+    table { font-size: 12px; }
+    th, td { padding: 8px 6px; }
+}
 
 /* ---------- Ad / affiliate slots ---------- */
 .ad-slot {
