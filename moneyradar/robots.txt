@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://dddd1125y.github.io/lawyer-site/moneyradar/sitemap.xml
