@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스튜디오 정렬 — 성수동 소수정예 필라테스</title>
+<meta name="description" content="서울 성동구 연무장길의 필라테스 스튜디오. 그룹 정원 5명. 이번 주 시간표와 지금 진행 중인 수업, 회원권 가격을 한 화면에서 확인하세요.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="스튜디오 정렬 — 성수동 소수정예 필라테스">
+<meta property="og:description" content="정원 5명 그룹 수업. 주간 시간표를 실시간으로 확인하세요. (WEB·BUILD 포트폴리오 데모)">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/studio.css">
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="top" id="top">
+    <div class="wrap top-inner">
+        <a class="logo" href="#top" aria-label="스튜디오 정렬 홈">
+            <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+                <line class="spine" x1="12" y1="2.5" x2="12" y2="21.5"/>
+                <line class="bar" x1="5" y1="7" x2="15" y2="7"/>
+                <line class="bar" x1="4" y1="12" x2="20" y2="12"/>
+                <line class="bar" x1="9" y1="17" x2="19" y2="17"/>
+                <circle class="pin" cx="12" cy="12" r="2.6"/>
+            </svg>
+            <span class="logo-text">
+                <b>스튜디오 정렬</b>
+                <i>STUDIO JEONGRYEOL</i>
+            </span>
+        </a>
+
+        <nav class="nav" aria-label="주요 메뉴">
+            <a href="#about">소개</a>
+            <a href="#schedule">시간표</a>
+            <a href="#classes">수업</a>
+            <a href="#teachers">강사</a>
+            <a href="#price">회원권</a>
+            <a href="#visit">오시는 길</a>
+        </nav>
+
+        <span class="demo-badge" title="실제 운영 중인 스튜디오가 아닌 포트폴리오용 데모입니다">DEMO</span>
+    </div>
+</header>
+
+<main id="main">
+
+    <!-- 01 · 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <p class="status" id="status" aria-live="polite">
+                <span class="dot" aria-hidden="true"></span>
+                <span id="statusText">수업 정보 확인 중</span>
+            </p>
+
+            <h1 class="hero-title">
+                <span class="line">다섯 명만</span>
+                <span class="line">받는 이유는</span>
+                <span class="line accent">하나입니다</span>
+            </h1>
+
+            <p class="hero-lead">
+                한 수업에 다섯 명. 강사가 <b>여덟 번</b> 손을 댈 수 있는 인원입니다.
+                동작을 외우는 게 아니라, 내 몸이 어디서 무너지는지 알고 가는 수업.
+            </p>
+
+            <div class="hero-cta">
+                <a class="btn btn--fill" href="#schedule">이번 주 시간표 보기</a>
+                <a class="btn btn--line" href="#price">회원권 · 체험 안내</a>
+            </div>
+
+            <dl class="hero-facts">
+                <div><dt>정원</dt><dd>그룹 최대 5명<br>듀엣 2명 · 개인 1:1</dd></div>
+                <div><dt>기구</dt><dd>리포머 5 · 캐딜락 1<br>체어 2 · 래더바렐 1</dd></div>
+                <div><dt>운영</dt><dd>평일 07:00–21:30<br>토 09:00–15:00</dd></div>
+                <div><dt>위치</dt><dd>성수동 연무장길<br>뚝섬역 3번 출구 도보 6분</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- 02 · 소개 -->
+    <section class="section" id="about">
+        <div class="wrap sheet">
+            <div class="sheet-head">
+                <span class="eyebrow">About</span>
+                <p class="pull">"동작을 늘리기 전에<br>정렬을 먼저 잡습니다."</p>
+            </div>
+
+            <div class="intro-body">
+                <p class="big">2019년, 리포머 두 대로 시작했습니다. 지금은 다섯 대이고, 그 이상 늘릴 생각은 없습니다.</p>
+
+                <p>기구를 늘리면 한 타임에 더 많은 분을 받을 수 있습니다. 그런데 여섯 명이 넘어가면 강사가 한 사람당 손을 댈 수 있는 횟수가 급격히 줄어듭니다. 필라테스는 자세를 만져 주지 않으면 잘못된 정렬을 그대로 반복하게 되는 운동입니다. 그래서 대수를 고정했습니다.</p>
+
+                <p>대신 처음 오시면 <b>체형 평가</b>를 먼저 합니다. 골반 높이, 어깨 기울기, 발목 정렬, 호흡 패턴을 보고 어느 레벨에서 시작할지 정합니다. 운동을 오래 하셨어도 입문 레벨을 권해 드리는 경우가 있고, 처음이어도 중급으로 가시는 경우가 있습니다.</p>
+
+                <p>레벨은 리포머 <b>스프링 색</b>으로 구분합니다. 노랑은 가벼운 저항이라 동작 범위를 익히는 단계, 파랑은 근지구력, 빨강은 강한 저항으로 근력과 컨트롤을 함께 씁니다. 시간표에 색으로 표시해 두었으니 예약 전에 확인해 주세요.</p>
+
+                <ul class="facts-list">
+                    <li><span class="k">설립</span><span>2019년 3월 · 성수동 같은 자리</span></li>
+                    <li><span class="k">첫 방문</span><span>체형 평가 20분 후 레벨 배정 (무료)</span></li>
+                    <li><span class="k">예약</span><span>수업 시작 2시간 전까지 · 취소는 4시간 전까지</span></li>
+                    <li><span class="k">준비물</span><span>양말은 대여해 드립니다. 편한 옷만 가져오세요.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 · 주간 시간표 (핵심 구획) -->
+    <section class="board" id="schedule">
+        <div class="wrap">
+            <div class="board-head">
+                <div>
+                    <span class="eyebrow">Weekly schedule</span>
+                    <h2 class="h2">이번 주 시간표</h2>
+                    <p class="lead">오늘 요일이 먼저 보이고, 진행 중인 수업은 파란색으로 표시됩니다. 레벨을 눌러 원하는 난이도만 볼 수 있습니다.</p>
+                </div>
+                <p class="board-now" id="boardNow">—</p>
+            </div>
+
+            <div class="filters" role="group" aria-label="레벨 필터">
+                <button class="chip" type="button" data-level="all" aria-pressed="true">전체</button>
+                <button class="chip" type="button" data-level="1" aria-pressed="false"><span class="sw" style="background:var(--lv1-on)" aria-hidden="true"></span>입문</button>
+                <button class="chip" type="button" data-level="2" aria-pressed="false"><span class="sw" style="background:var(--lv2-on)" aria-hidden="true"></span>중급</button>
+                <button class="chip" type="button" data-level="3" aria-pressed="false"><span class="sw" style="background:var(--lv3-on)" aria-hidden="true"></span>상급</button>
+                <button class="chip" type="button" data-level="4" aria-pressed="false"><span class="sw" style="background:var(--lv4-on)" aria-hidden="true"></span>개인</button>
+            </div>
+
+            <div class="days" id="days" role="group" aria-label="요일 선택"></div>
+
+            <div class="grid" id="grid">
+                <noscript>
+                    <p class="col-empty">시간표를 보려면 자바스크립트를 켜 주세요. 전화(02-000-0000)로도 안내해 드립니다.</p>
+                </noscript>
+            </div>
+
+            <div class="board-foot">
+                <span><b>정원</b> 그룹 5명 · 듀엣 2명 · 개인 1명</span>
+                <span><b>수업 시간</b> 50분 (기구 정리 10분 포함 시 60분)</span>
+                <span><b>예약</b> 시작 2시간 전 마감 · 취소는 4시간 전까지</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 · 수업 종류 -->
+    <section class="section" id="classes">
+        <div class="wrap">
+            <div class="sheet">
+                <div class="sheet-head">
+                    <span class="eyebrow">Classes</span>
+                    <h2 class="h2">어떤 수업이 있나요</h2>
+                </div>
+                <div>
+                    <p class="lead" style="margin-top:0">기구 수업과 매트 수업으로 나뉩니다. 처음 오시면 대부분 매트 입문이나 리포머 입문에서 시작하시고, 보통 8~12회쯤에 중급으로 올라가십니다.</p>
+                </div>
+            </div>
+
+            <div class="classes" style="margin-top:clamp(2rem,4vw,2.75rem)">
+                <div class="class-card">
+                    <p class="cn">리포머</p>
+                    <p class="cd">스프링 저항으로 몸을 밀고 당깁니다. 누운 자세에서 시작하기 때문에 허리 부담이 적어 초보자도 안전하게 코어를 쓸 수 있습니다. 가장 많이 찾으시는 수업입니다.</p>
+                    <p class="cm">기구 5대 · 전 레벨 운영</p>
+                </div>
+                <div class="class-card">
+                    <p class="cn">캐딜락 &amp; 체어</p>
+                    <p class="cd">리포머보다 저항 조절 폭이 큽니다. 특정 부위를 집중적으로 쓰거나, 통증이 있는 부위를 피해 운동해야 할 때 씁니다. 주로 개인레슨과 중급 이상에서 사용합니다.</p>
+                    <p class="cm">캐딜락 1 · 체어 2 · 중급 이상</p>
+                </div>
+                <div class="class-card">
+                    <p class="cn">매트</p>
+                    <p class="cd">기구 없이 체중만으로 합니다. 링·볼·밴드 같은 소도구를 씁니다. 집에서도 이어서 할 수 있는 동작 위주라, 기구 수업과 병행하시는 분이 많습니다.</p>
+                    <p class="cm">최대 5명 · 전 레벨 운영</p>
+                </div>
+                <div class="class-card">
+                    <p class="cn">개인 · 듀엣</p>
+                    <p class="cd">통증이 있거나, 산전·산후이거나, 특정 목표(측만증 교정·재활 등)가 뚜렷할 때 권해 드립니다. 시간표에 없는 시간대도 상담 후 조율할 수 있습니다.</p>
+                    <p class="cm">1:1 또는 2인 · 시간 조율 가능</p>
+                </div>
+            </div>
+
+            <div class="levels">
+                <h3 class="h3">레벨 구분 — 리포머 스프링 색을 그대로 씁니다</h3>
+                <div class="level-scroll">
+                    <table class="level-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">레벨</th>
+                                <th scope="col">스프링</th>
+                                <th scope="col">이런 분께</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><span class="lv"><span class="sw" style="background:var(--lv1)" aria-hidden="true"></span>입문</span></th>
+                                <td class="spring">옐로우 1~2</td>
+                                <td>필라테스가 처음이거나, 6개월 이상 쉬셨던 분. 호흡과 골반 중립을 잡는 데 절반을 씁니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="lv"><span class="sw" style="background:var(--lv2)" aria-hidden="true"></span>중급</span></th>
+                                <td class="spring">블루 1 + 옐로우 1</td>
+                                <td>기본 동작 이름과 순서를 아시는 분. 동작을 이어서 흐름으로 갑니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="lv"><span class="sw" style="background:var(--lv3)" aria-hidden="true"></span>상급</span></th>
+                                <td class="spring">레드 1~2</td>
+                                <td>플랭크를 1분 이상 정렬 무너지지 않고 버티시는 분. 점프보드·풀업 동작이 들어갑니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="lv"><span class="sw" style="background:var(--lv4)" aria-hidden="true"></span>개인</span></th>
+                                <td class="spring">개별 설정</td>
+                                <td>통증·재활·산전산후 등 몸 상태에 맞춰 그날그날 다르게 씁니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 · 강사 -->
+    <section class="section" id="teachers">
+        <div class="wrap">
+            <div class="sheet">
+                <div class="sheet-head">
+                    <span class="eyebrow">Instructors</span>
+                    <h2 class="h2">누가 가르치나요</h2>
+                </div>
+                <div>
+                    <p class="lead" style="margin-top:0">세 명이 전부입니다. 대강사를 쓰지 않기 때문에, 등록하신 수업은 시간표에 적힌 강사가 그대로 진행합니다. 부득이하게 바뀌면 전날까지 개별로 연락드립니다.</p>
+                </div>
+            </div>
+
+            <div class="teachers" style="margin-top:clamp(2rem,4vw,2.75rem)">
+                <div class="teacher">
+                    <div class="teacher-top">
+                        <span class="mono-badge" aria-hidden="true">세영</span>
+                        <div>
+                            <p class="tn">김세영</p>
+                            <p class="tr">원장 · 자세교정</p>
+                        </div>
+                    </div>
+                    <ul class="tq">
+                        <li>PMA 국제자격 (CPT)</li>
+                        <li>폴스타 필라테스 재활 과정 수료</li>
+                        <li>한국무용 전공 · 무용수 경력 12년</li>
+                        <li>측만증 · 라운드숄더 교정 전문</li>
+                    </ul>
+                </div>
+                <div class="teacher">
+                    <div class="teacher-top">
+                        <span class="mono-badge" aria-hidden="true">지원</span>
+                        <div>
+                            <p class="tn">박지원</p>
+                            <p class="tr">강사 · 산전산후</p>
+                        </div>
+                    </div>
+                    <ul class="tq">
+                        <li>BASI 필라테스 컴프리헨시브</li>
+                        <li>생활스포츠지도사 2급 (보디빌딩)</li>
+                        <li>산전·산후 필라테스 지도자 과정</li>
+                        <li>운동이 처음인 분 · 임산부 수업 담당</li>
+                    </ul>
+                </div>
+                <div class="teacher">
+                    <div class="teacher-top">
+                        <span class="mono-badge" aria-hidden="true">하람</span>
+                        <div>
+                            <p class="tn">이하람</p>
+                            <p class="tr">강사 · 통증관리</p>
+                        </div>
+                    </div>
+                    <ul class="tq">
+                        <li>STOTT PILATES 인증 지도자</li>
+                        <li>물리치료사 면허</li>
+                        <li>스포츠재활 전공 (석사)</li>
+                        <li>허리 · 목 통증 · 상급반 담당</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 · 회원권 -->
+    <section class="section" id="price">
+        <div class="wrap">
+            <div class="sheet">
+                <div class="sheet-head">
+                    <span class="eyebrow">Membership</span>
+                    <h2 class="h2">회원권</h2>
+                </div>
+                <div>
+                    <p class="lead" style="margin-top:0">모두 부가세 포함 가격입니다. 표시된 기간 안에 소진하는 횟수제이고, 기간을 늘리는 옵션은 따로 없습니다. 처음이시면 1회 체험 후 정하셔도 됩니다.</p>
+                </div>
+            </div>
+
+            <div style="margin-top:clamp(2rem,4vw,2.75rem)">
+                <div class="price-wrap">
+                    <div class="price-scroll">
+                        <table class="price-table">
+                            <caption>그룹 (정원 5명)</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">횟수</th>
+                                    <th scope="col">사용 기간</th>
+                                    <th scope="col" style="text-align:right">금액</th>
+                                    <th scope="col" style="text-align:right">1회당</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">체험 1회</th><td>당일</td><td class="won">30,000</td><td class="per">등록 시 차감</td></tr>
+                                <tr><th scope="row">8회</th><td>2개월</td><td class="won">320,000</td><td class="per">40,000</td></tr>
+                                <tr><th scope="row">16회</th><td>3개월</td><td class="won">592,000</td><td class="per">37,000</td></tr>
+                                <tr><th scope="row">24회</th><td>4개월</td><td class="won">840,000</td><td class="per">35,000</td></tr>
+                                <tr><th scope="row">48회</th><td>8개월</td><td class="won">1,584,000</td><td class="per">33,000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="price-wrap">
+                    <div class="price-scroll">
+                        <table class="price-table">
+                            <caption>듀엣 · 개인</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">구분</th>
+                                    <th scope="col">사용 기간</th>
+                                    <th scope="col" style="text-align:right">금액</th>
+                                    <th scope="col" style="text-align:right">1회당</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">듀엣 10회</th><td>3개월</td><td class="won">650,000</td><td class="per">65,000</td></tr>
+                                <tr><th scope="row">듀엣 20회</th><td>5개월</td><td class="won">1,240,000</td><td class="per">62,000</td></tr>
+                                <tr><th scope="row">개인 10회</th><td>3개월</td><td class="won">1,000,000</td><td class="per">100,000</td></tr>
+                                <tr><th scope="row">개인 20회</th><td>5개월</td><td class="won">1,900,000</td><td class="per">95,000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="notice">
+                    <h3 class="h3">환불 · 정지 규정</h3>
+                    <ol>
+                        <li>이용을 시작하기 전에는 결제하신 금액을 전액 환불해 드립니다.</li>
+                        <li>이용 시작 후 환불액은 <b>결제 금액에서 이미 사용한 횟수를 할인 전 1회 가격(45,000원)으로 계산해 뺀 금액</b>이며, 여기에서 총액의 10%를 위약금으로 공제합니다.</li>
+                        <li>스튜디오 사정으로 수업이 진행되지 못한 경우에는 위약금 없이 해당 회차를 돌려드리거나 환불해 드립니다.</li>
+                        <li>질병·부상·임신·출산·장기 출장은 증빙을 주시면 기간을 정지해 드립니다. 1회 최대 30일, 회원권당 2회까지 가능합니다.</li>
+                        <li>회원권 양도는 잔여 횟수가 절반 이상 남아 있을 때 1회 가능합니다. 양도 수수료는 받지 않습니다.</li>
+                        <li>예약 후 4시간 이내 취소하거나 오지 않으신 경우 1회가 차감됩니다.</li>
+                    </ol>
+                    <p class="law">「체육시설의 설치·이용에 관한 법률」 및 공정거래위원회 소비자분쟁해결기준에 따릅니다. 위 금액은 데모용 예시입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 07 · 오시는 길 -->
+    <section class="section" id="visit">
+        <div class="wrap">
+            <div class="sheet">
+                <div class="sheet-head">
+                    <span class="eyebrow">Visit</span>
+                    <h2 class="h2">성수동 연무장길</h2>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="visit-grid" style="margin-top:clamp(1.5rem,3vw,2.25rem)">
+                <div class="map-box">
+                    <div class="map-fallback" aria-hidden="true">
+                        <p class="addr">연무장길 43, 3층</p>
+                        <p class="sub">뚝섬역 3번 출구에서 도보 6분</p>
+                    </div>
+                    <iframe
+                        src="https://www.google.com/maps?q=37.5445,127.0557&hl=ko&z=16&output=embed"
+                        title="스튜디오 정렬 위치 지도"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen></iframe>
+                </div>
+
+                <div class="visit-info">
+                    <dl class="info-list">
+                        <div>
+                            <dt>주소</dt>
+                            <dd>서울 성동구 연무장길 43, 3층<br><span class="muted">뚝섬역 3번 출구 도보 6분 · 성수역 4번 출구 도보 9분</span></dd>
+                        </div>
+                        <div>
+                            <dt>운영시간</dt>
+                            <dd>
+                                <table class="hours-table">
+                                    <tbody>
+                                        <tr data-day="weekday"><th scope="row">월–금</th><td>07:00–21:30</td></tr>
+                                        <tr data-day="sat"><th scope="row">토</th><td>09:00–15:00</td></tr>
+                                        <tr data-day="sun"><th scope="row">일</th><td>휴무 (공휴일 포함)</td></tr>
+                                    </tbody>
+                                </table>
+                            </dd>
+                        </div>
+                        <div>
+                            <dt>주차</dt>
+                            <dd>건물 주차 2대 (선착순, 2시간 무료). 만차 시 연무장길 공영주차장을 이용해 주세요.</dd>
+                        </div>
+                        <div>
+                            <dt>문의</dt>
+                            <dd>전화 <b>02-000-0000</b><br><span class="muted">수업 중에는 못 받습니다. 카카오톡 채널로 남겨 주시면 순서대로 답변드립니다.</span></dd>
+                        </div>
+                        <div>
+                            <dt>시설</dt>
+                            <dd>탈의실 2 · 샤워실 1 · 파우더룸<br><span class="muted">수건과 양말은 무료로 대여해 드립니다.</span></dd>
+                        </div>
+                    </dl>
+
+                    <a class="btn btn--line btn--wide" href="https://map.kakao.com/?q=서울 성동구 연무장길 43" target="_blank" rel="noopener">지도 앱에서 길찾기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 08 · 제작사 밴드 -->
+    <section class="maker" id="maker">
+        <div class="wrap maker-inner">
+            <div class="maker-note">
+                <span class="maker-eyebrow">MADE BY WEB·BUILD</span>
+                <h2 class="maker-title">이 사이트는 실제 스튜디오가 아닌, 제작 예시입니다.</h2>
+                <p>"스튜디오 정렬"은 필라테스·요가·PT 스튜디오 홈페이지가 어떤 모습이어야 하는지 보여드리기 위해 만든 가상의 매장입니다. 실제 의뢰에서는 원장님의 상호·시간표·강사·회원권 가격으로 그대로 바뀝니다.</p>
+                <ul class="maker-points">
+                    <li><b>시간표를 이미지로 올리지 않습니다.</b> 엑셀 캡처 대신 데이터로 관리해서, 한 곳만 고치면 웹·모바일이 같이 바뀝니다.</li>
+                    <li><b>지금 어떤 수업 중인지</b>를 방문자가 첫 화면에서 바로 확인합니다.</li>
+                    <li><b>레벨 필터</b>로 "제가 들을 수 있는 수업이 뭔가요?" 문의를 줄였습니다.</li>
+                    <li><b>환불 규정</b>을 법정 기준에 맞춰 페이지에 명시해 분쟁 소지를 줄였습니다.</li>
+                </ul>
+            </div>
+            <aside class="maker-card">
+                <p class="maker-price"><b>250,000원</b>부터</p>
+                <p class="maker-term">제작 기간 3일 · 수정 횟수 제한 없음</p>
+                <ul class="maker-inc">
+                    <li>반응형 1페이지 홈페이지</li>
+                    <li>시간표 · 회원권 · 강사 구성</li>
+                    <li>지도 · 문의 연결 및 배포까지</li>
+                </ul>
+                <a class="btn btn--fill btn--wide" href="../../contact.html">웹사이트 제작 문의하기</a>
+                <a class="maker-link" href="../../index.html">WEB·BUILD 소개 보기 →</a>
+            </aside>
+        </div>
+    </section>
+
+</main>
+
+<footer class="foot">
+    <div class="wrap foot-inner">
+        <div>
+            <p class="foot-brand">스튜디오 정렬 <span>STUDIO JEONGRYEOL</span></p>
+            <p class="foot-addr">서울 성동구 연무장길 43, 3층 · 일요일 및 공휴일 휴무</p>
+            <p class="foot-biz">
+                상호 스튜디오 정렬 · 대표 김세영 · 사업자등록번호 000-00-00000<br>
+                통신판매업신고 제0000-서울성동-0000호 · 전화 02-000-0000
+            </p>
+        </div>
+        <p class="foot-demo">본 페이지는 WEB·BUILD가 제작한 포트폴리오용 데모입니다. 실제로 운영되는 스튜디오가 아니며, 상호·주소·강사·가격·사업자 정보는 모두 예시로 작성되었습니다.</p>
+    </div>
+</footer>
+
+<div class="mobile-bar">
+    <a href="#schedule">시간표</a>
+    <a class="primary" href="#price">회원권 · 체험</a>
+</div>
+
+<script src="assets/js/studio.js"></script>
+</body>
+</html>
