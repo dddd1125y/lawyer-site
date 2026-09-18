@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brandit - 실시간 홈페이지 제작</title>
   <meta name="description" content="카페, 음식점, 필라테스 스튜디오를 위한 실시간 반응형 홈페이지. 3일 내 완성, 운영 관리까지.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -212,13 +213,11 @@
     }
 
     .case-image {
+      position: relative;
+      display: block;
       width: 100%;
       aspect-ratio: 1;
       background: rgba(0, 0, 0, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
       overflow: hidden;
     }
 
@@ -226,10 +225,72 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .case-card:hover .case-image img {
+      transform: scale(1.03);
     }
 
     .case-content {
       padding: 30px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .case-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .case-meta span {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      border: 1px solid rgba(255, 194, 51, 0.35);
+      border-radius: 999px;
+      padding: 4px 12px;
+    }
+
+    .case-actions {
+      margin-top: auto;
+      padding-top: 26px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 14px 26px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 194, 51, 0.4);
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(255, 194, 51, 0.1);
+    }
+
+    .case-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
     .case-content h3 {
@@ -410,25 +471,6 @@
       margin-bottom: 20px;
     }
 
-    .contact-links {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-
-    .contact-links a {
-      color: var(--gold);
-      text-decoration: none;
-      font-weight: 700;
-      transition: all 0.3s;
-    }
-
-    .contact-links a:hover {
-      text-shadow: 0 0 15px var(--gold-glow);
-    }
-
     /* 반응형 */
     @media (max-width: 768px) {
       .hero h1 {
@@ -485,7 +527,10 @@
           카페, 음식점, 필라테스 스튜디오를 위한<br>
           실시간으로 살아있는 반응형 홈페이지
         </p>
-        <a href="#contact" class="cta-button">지금 상담하기</a>
+        <div class="case-actions" style="justify-content: center;">
+          <a href="#contact" class="cta-button">지금 상담하기</a>
+          <a href="#cases" class="btn-outline">완성된 사이트 먼저 보기</a>
+        </div>
       </div>
     </section>
 
@@ -516,7 +561,7 @@
           <div class="service-item">
             <div class="service-icon">🗺️</div>
             <h3>지도·전화 연결</h3>
-            <p>한 번의 터치로 지도, 전화, SNS로 바로 연결되요</p>
+            <p>한 번의 터치로 지도, 전화, SNS로 바로 연결돼요</p>
           </div>
           <div class="service-item">
             <div class="service-icon">🔍</div>
@@ -536,37 +581,62 @@
     <section id="cases">
       <div class="container">
         <h2>완성 사례</h2>
+        <p style="font-size: 17px; color: var(--text-muted); text-align: center; max-width: 640px; margin: -30px auto 0;">
+          아래 두 사이트는 실제로 동작합니다. 눌러서 직접 만져보세요.<br>
+          영업 상태와 시간표는 지금 이 순간 시각에 맞춰 바뀝니다.
+        </p>
         <div class="case-studies">
-          <div class="case-card">
-            <div class="case-image">
-              <img src="./assets/cafe-thumb.png" alt="카페 포트폴리오">
-            </div>
+          <article class="case-card">
+            <a class="case-image" href="./portfolio/cafe-gyejeol/" target="_blank" rel="noopener">
+              <img src="./assets/cafe-thumb.png" alt="카페 계절 홈페이지 미리보기">
+            </a>
             <div class="case-content">
-              <h3>☕ 카페·베이커리</h3>
-              <p>따뜻한 분위기에서 고객을 맞이하는 카페. 실시간 영업 상태와 계절 메뉴를 자동으로 표시합니다.</p>
+              <div class="case-meta">
+                <span>카페 · 베이커리</span>
+                <span>서울 연남동</span>
+              </div>
+              <h3>카페 계절</h3>
+              <p>계절마다 메뉴가 바뀌는 골목 카페. 방문자가 첫 화면에서 "지금 문 열었는지"를 바로 확인하고, 봄·여름·가을·겨울 메뉴가 날짜에 따라 저절로 넘어갑니다.</p>
               <ul class="case-features">
-                <li>실시간 영업·마감 표시</li>
-                <li>계절 메뉴 자동 전환</li>
-                <li>지도·전화 바로 연결</li>
+                <li>현재 시각 기준 영업중 · 마감 표시</li>
+                <li>계절별 메뉴 자동 전환</li>
+                <li>좌석 배치도로 "자리 있나요?" 문의 감소</li>
+                <li>모바일 하단 고정 길찾기 버튼</li>
               </ul>
+              <div class="case-actions">
+                <a class="cta-button" href="./portfolio/cafe-gyejeol/" target="_blank" rel="noopener">사이트 열어보기</a>
+                <a class="btn-outline" href="#pricing">제작 비용 보기</a>
+              </div>
             </div>
-          </div>
+          </article>
 
-          <div class="case-card">
-            <div class="case-image">
-              <img src="./assets/studio-thumb.png" alt="필라테스 스튜디오 포트폴리오">
-            </div>
+          <article class="case-card">
+            <a class="case-image" href="./portfolio/studio-jeongryeol/" target="_blank" rel="noopener">
+              <img src="./assets/studio-thumb.png" alt="스튜디오 정렬 홈페이지 미리보기">
+            </a>
             <div class="case-content">
-              <h3>💪 필라테스·요가</h3>
-              <p>회원 레벨별 시간표를 자동으로 필터링하고, 실시간 수업 상황을 표시합니다. 예약도 간편하게.</p>
+              <div class="case-meta">
+                <span>필라테스 · 요가</span>
+                <span>서울 성수동</span>
+              </div>
+              <h3>스튜디오 정렬</h3>
+              <p>정원 5명 소수정예 스튜디오. 시간표를 이미지로 올리지 않고 데이터로 관리해서, 한 곳만 고치면 웹과 모바일이 같이 바뀝니다.</p>
               <ul class="case-features">
-                <li>실시간 수업 시간표</li>
-                <li>레벨별 자동 필터링</li>
-                <li>회원권·체험 안내</li>
+                <li>지금 진행 중인 수업 실시간 표시</li>
+                <li>레벨별 시간표 필터링</li>
+                <li>회원권 · 체험 수업 가격 안내</li>
+                <li>법정 기준에 맞춘 환불 규정 명시</li>
               </ul>
+              <div class="case-actions">
+                <a class="cta-button" href="./portfolio/studio-jeongryeol/" target="_blank" rel="noopener">사이트 열어보기</a>
+                <a class="btn-outline" href="#pricing">제작 비용 보기</a>
+              </div>
             </div>
-          </div>
+          </article>
         </div>
+        <p class="case-note" style="text-align: center; margin-top: 40px;">
+          두 사이트 모두 제작 역량을 보여드리기 위한 예시입니다. 실제 의뢰에서는 사장님의 상호 · 사진 · 메뉴 · 영업시간으로 그대로 바뀝니다.
+        </p>
       </div>
     </section>
 
@@ -612,7 +682,7 @@
     <!-- 가격 -->
     <section id="pricing">
       <div class="container">
-        <h2>합리한 가격</h2>
+        <h2>합리적인 가격</h2>
         <div class="pricing-table">
           <div class="price-card">
             <h3>카페·음식점</h3>
@@ -656,12 +726,12 @@
             </div>
             <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 14px;">추가 기능 있을 때</p>
             <ul class="price-list">
-              <li>결제 결제 연동 +300K</li>
-              <li>고급 예약 시스템 +500K</li>
-              <li>추가 페이지 +100K/개</li>
-              <li>SNS 자동 연동 +200K</li>
-              <li>상세한 분석 대시보드 +300K</li>
-              <li>맞춤 개발 문의</li>
+              <li>결제 연동 +300,000원</li>
+              <li>고급 예약 시스템 +500,000원</li>
+              <li>추가 페이지 +100,000원/개</li>
+              <li>SNS 자동 연동 +200,000원</li>
+              <li>방문 분석 대시보드 +300,000원</li>
+              <li>그 외 맞춤 개발은 문의</li>
             </ul>
             <a href="#contact" class="cta-button">상담 신청</a>
           </div>
@@ -673,11 +743,15 @@
     <section class="cta-section" id="contact">
       <div class="container">
         <h2>지금 바로 시작하세요</h2>
-        <p>3일 안에 당신의 비즈니스를 온라인으로 끌어올려보세요</p>
-        <div class="contact-links">
-          <a href="https://kmong.com" target="_blank">🛍️ 크몽에서 상담하기</a>
-          <a href="mailto:contact@brandit.com">📧 이메일 문의</a>
-        </div>
+        <p>
+          상담은 무료입니다. 업종과 원하시는 기능만 알려주시면<br>
+          예상 견적과 일정을 먼저 보내드립니다.
+        </p>
+        <!-- 크몽 서비스 등록 후, 아래 href를 본인 서비스 주소로 교체하세요. -->
+        <a class="cta-button" href="https://kmong.com" target="_blank" rel="noopener">크몽에서 상담 신청하기</a>
+        <p class="case-note" style="margin-top: 28px;">
+          문의 시 업종 · 필요한 기능 · 희망 오픈일을 함께 알려주시면 상담이 훨씬 빨라집니다.
+        </p>
       </div>
     </section>
   </main>
@@ -687,8 +761,7 @@
       <h3>Brandit</h3>
       <p>카페·음식점·필라테스 스튜디오를 위한 실시간 반응형 홈페이지</p>
       <p style="margin-top: 30px; font-size: 12px; color: var(--text-muted);">
-        © 2026 Brandit. 모든 권리 보유.<br>
-        개인정보처리방침 | 이용약관 | 고객 지원
+        © 2026 Brandit
       </p>
     </div>
   </footer>

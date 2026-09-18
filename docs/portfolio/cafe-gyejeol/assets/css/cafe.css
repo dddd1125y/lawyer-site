@@ -209,9 +209,28 @@ ul { list-style: none; }
     flex: none;
 }
 
+.back-link {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--milk-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 0.28rem 0.7rem;
+    flex: none;
+    white-space: nowrap;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.back-link:hover { color: var(--accent-soft); border-color: var(--accent-soft); }
+
 @media (max-width: 760px) {
     .nav { display: none; }
-    .demo-badge { margin-left: auto; }
+    .back-link { margin-left: auto; }
+    .demo-badge { margin-left: 0; }
+}
+
+@media (max-width: 420px) {
+    .demo-badge { display: none; }
 }
 
 /* ---------- 히어로 ---------- */
