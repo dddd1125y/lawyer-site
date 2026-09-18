@@ -681,6 +681,13 @@ ul { list-style: none; }
     color: #121210;
     margin-right: 0.15rem;
 }
+.maker-price--text {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #121210;
+    letter-spacing: -0.02em;
+}
 .maker-term { font-size: 0.88rem; color: #6e6e66; margin-top: 0.2rem; }
 .maker-inc { margin: 1.4rem 0; border-top: 1px solid #e4e1da; }
 .maker-inc li {

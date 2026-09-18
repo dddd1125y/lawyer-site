@@ -847,6 +847,13 @@ table { border-collapse: collapse; }
     color: var(--on-deep);
     margin-right: 0.15rem;
 }
+.maker-price--text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--on-deep);
+    letter-spacing: -0.02em;
+}
 .maker-term { font-size: 0.85rem; color: var(--on-deep-3); margin-top: 0.15rem; }
 .maker-inc { margin: 1.3rem 0; border-top: 1px solid var(--deep-3); }
 .maker-inc li {

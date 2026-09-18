@@ -1,5 +1,5 @@
 /* =========================================================
-   WEB·BUILD — 공용 스타일
+   Brandit — 공용 스타일
    ========================================================= */
 
 /* ---------- Tokens ---------- */
@@ -833,6 +833,138 @@ a.row:hover .row-arrow {
     justify-content: space-between;
     padding-top: 1.6rem;
     font-size: 0.8rem;
+}
+
+/* ---------- Portfolio ---------- */
+.case-list { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+
+.case { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: center; }
+
+.case-media {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--surface);
+    transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.35s ease;
+}
+
+.case-media img { width: 100%; height: auto; }
+
+a.case-media:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-2);
+    box-shadow: 0 22px 50px rgba(18, 18, 16, 0.10);
+}
+
+.case-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.1rem; }
+
+.case-title {
+    font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
+    font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.case-sub { color: var(--ink-3); font-size: 0.9rem; margin-top: 0.6rem; }
+.case-body > p { color: var(--ink-2); margin-top: 1.35rem; line-height: 1.9; max-width: 52ch; }
+
+.case-points { display: grid; gap: 0.75rem; margin-top: 1.6rem; }
+
+.case-points li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.7;
+}
+
+.case-points i {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 0.15rem;
+    border-radius: 50%;
+    background: var(--accent-tint);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    font-style: normal;
+}
+
+.case-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+
+.work-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+
+.work-card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease), border-color 0.35s ease, box-shadow 0.4s var(--ease);
+}
+
+.work-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-2);
+    box-shadow: 0 18px 40px rgba(18, 18, 16, 0.08);
+}
+
+.work-media { display: block; border-bottom: 1px solid var(--line); }
+.work-media img { width: 100%; height: auto; }
+.work-body { display: block; padding: clamp(1.25rem, 3vw, 1.75rem); }
+
+.work-title {
+    display: block;
+    font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 0.9rem;
+}
+
+.work-desc {
+    display: block;
+    color: var(--ink-2);
+    font-size: 0.93rem;
+    line-height: 1.85;
+    margin-top: 0.55rem;
+}
+
+.work-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+    transition: gap 0.35s var(--ease);
+}
+
+.work-card:hover .work-open { gap: 0.75rem; }
+
+.demo-note {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: 1.25rem 1.5rem;
+    border: 1px dashed var(--line-2);
+    border-radius: 14px;
+    font-size: 0.9rem;
+    color: var(--ink-3);
+    line-height: 1.8;
+}
+
+@media (min-width: 900px) {
+    .case { grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 5vw, 4.5rem); }
+    .case--flip .case-media { order: 2; }
 }
 
 /* ---------- Responsive ---------- */
